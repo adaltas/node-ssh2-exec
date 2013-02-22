@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/wdavidw/node-superexec.png)](http://travis-ci.org/wdavidw/node-superexec)
+
 NodeJs SuperExec
 ================
 
