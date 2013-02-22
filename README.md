@@ -43,3 +43,5 @@ Contributors
 ------------
 
 *   David Worms: <https://github.com/wdavidw>
+
+[travis]: https://travis-ci.org/#!/wdavidw/node-csv-parser
