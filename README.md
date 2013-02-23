@@ -1,9 +1,9 @@
 [![Build Status](https://secure.travis-ci.org/wdavidw/node-superexec.png)](http://travis-ci.org/wdavidw/node-superexec)
 
-NodeJs SuperExec
+Node.js SuperExec
 ================
 
-SuperExec is a small NodeJs module to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions.
+SuperExec is a small Node.js module to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions.
 
 Installation
 ------------
