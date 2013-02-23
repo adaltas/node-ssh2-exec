@@ -68,7 +68,7 @@ describe 'exec', ->
             ssherr.should.eql stderr
             next()
 
-  it.only 'handle a failed command without a callback', (next) ->
+  it 'handle a failed command without a callback', (next) ->
     connect host: 'localhost', (err, connection) ->
       return next err if err
       sshout = ssherr = ''

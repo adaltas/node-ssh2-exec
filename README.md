@@ -17,8 +17,29 @@ npm install superexec
 Example
 -------
 
+A command, a configuration object and a callback:
+
 ```js
-superexec 
+exec = require('superexec');
+exec('ls -la', {ssh: {host: 'localhost'}}, (err, stdout, stderr){
+  console.log(stdout);
+});
+exec = require('superexec');
+```
+
+A configuration object with a ssh2 connection and working a the return child object:
+
+```js
+exec = require('superexec');
+child = exec({cmd: 'ls -la', ssh: passSSH2Connection}, function(err, stdout, stderr){
+  console.log(stdout);
+});
+child.stdout.on('data', function(data){
+  console.log(stdout);
+});
+child.on('exit', function(code){
+  console.log('Exit', code);
+});
 ```
 
 Development
