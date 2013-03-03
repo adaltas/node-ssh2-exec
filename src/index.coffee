@@ -23,6 +23,7 @@ module.exports = (options, callback) ->
     connection = null
     run = ->
       stdout = stderr = ''
+      options.cmd = "cd #{options.cwd}; #{options.cmd}" if options.cwd
       connection.exec options.cmd, (err, stream) ->
         if err
           console.log 'error'
