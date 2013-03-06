@@ -15,7 +15,25 @@ ProxyStream::resume = ->
   # do nothing
 util.inherits ProxyStream, Stream
 
-module.exports = (options, callback) ->
+###
+`exec([command], options, [callback])`
+------------------------------------
+###
+module.exports = (command, options, callback) ->
+  if typeof arguments[0] is 'string'
+    unless arguments.length is 3 or arguments.length is 2
+      return callback new Error 'Invalid arguments'
+  else
+    if arguments.length is 2
+      callback = options
+      options = command
+      command = options.cmd
+    else if arguments.length is 1
+      options = command
+      command = options.cmd
+    else
+      return callback new Error 'Invalid arguments'
+
   if options.ssh
     child = new EventEmitter
     child.stdout = new ProxyStream
@@ -23,8 +41,8 @@ module.exports = (options, callback) ->
     connection = null
     run = ->
       stdout = stderr = ''
-      options.cmd = "cd #{options.cwd}; #{options.cmd}" if options.cwd
-      connection.exec options.cmd, (err, stream) ->
+      command = "cd #{options.cwd}; #{command}" if options.cwd
+      connection.exec command, (err, stream) ->
         if err
           console.log 'error'
           callback err if callback
@@ -61,6 +79,6 @@ module.exports = (options, callback) ->
     cmdOptions.cwd = options.cwd or null
     cmdOptions.uid = options.uid if options.uid
     cmdOptions.gid = options.gid if options.gid
-    exec options.cmd, cmdOptions, callback
+    exec command, cmdOptions, callback
 
 

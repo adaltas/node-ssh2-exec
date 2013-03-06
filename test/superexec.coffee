@@ -94,6 +94,21 @@ describe 'exec', ->
           sshcode.should.eql code
           next()
 
+  it 'handle a command string as first argument', (next) ->
+    connect host: 'localhost', (err, connection) ->
+      return next err if err
+      superexec 'ls -l', ssh: connection, (err, ssh2out, ssh2err) ->
+        return next err if err
+        superexec 'ls -l', ssh: host: 'localhost', (err, sshout, ssherr) ->
+          return next err if err
+          ssh2out.should.eql sshout
+          ssh2err.should.eql ssherr
+          superexec 'ls -l', cwd: process.env['HOME'], (err, stdout, stderr) ->
+            return next err if err
+            sshout.should.eql stdout
+            ssherr.should.eql stderr
+            next()
+
 
 
 
