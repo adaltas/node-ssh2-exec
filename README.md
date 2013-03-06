@@ -14,6 +14,13 @@ StartStop is open source and licensed under the new BSD license.
 npm install superexec
 ```
 
+Usage
+-----
+
+Requiring the module export a single function expecting 1, 2 or 3 arguments. The function signature is `exec([command], options, [callback])`.
+
+Like in the native NodeJS API, the callback is not required in case you with to work with the returned child stream. The command argument is also facultative since it could be provided under the "cmd" property of the options object.
+
 Example
 -------
 
