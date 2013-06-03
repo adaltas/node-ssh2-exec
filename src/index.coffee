@@ -44,7 +44,6 @@ module.exports = (command, options, callback) ->
       command = "cd #{options.cwd}; #{command}" if options.cwd
       connection.exec command, (err, stream) ->
         if err
-          console.log 'error'
           callback err if callback
           return
         stream.on 'data', (data, extended) ->
