@@ -18,6 +18,16 @@ util.inherits ProxyStream, Stream
 ###
 `exec([command], options, [callback])`
 ------------------------------------
+
+Valid `options` properties are:
+-   *ssh*   SSH connection if the command must run remotely
+-   *cmd*   Command to run unless provided as first argument
+-   *cwd*   Current working directory
+-   *env*   An environment to use for the execution of the command.
+-   *pty*   Set to true to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. Apply only to SSH remote commands.
+-   *cwd*   Apply only to local commands.
+-   *uid*   Apply only to local commands.
+-   *gid*   Apply only to local commands.
 ###
 module.exports = (command, options, callback) ->
   if typeof arguments[0] is 'string'
@@ -42,7 +52,10 @@ module.exports = (command, options, callback) ->
     run = ->
       stdout = stderr = ''
       command = "cd #{options.cwd}; #{command}" if options.cwd
-      connection.exec command, (err, stream) ->
+      cmdOptions = {}
+      cmdOptions.env = options.env if options.env
+      cmdOptions.pty = options.pty if options.pty
+      connection.exec command, cmdOptions, (err, stream) ->
         if err
           callback err if callback
           return
