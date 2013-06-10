@@ -21,6 +21,7 @@ module.exports = (options, callback) ->
   connect = ->
     connection = new ssh2()
     connection.on 'error', (err) ->
+      connection.end()
       callback err
     connection.on 'ready', ->
       callback null, connection
