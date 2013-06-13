@@ -31,7 +31,6 @@ exec = require('superexec');
 exec('ls -la', {ssh: {host: 'localhost'}}, (err, stdout, stderr){
   console.log(stdout);
 });
-exec = require('superexec');
 ```
 
 A configuration object with a ssh2 connection and working a the return child object:
