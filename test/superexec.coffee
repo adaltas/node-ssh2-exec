@@ -1,4 +1,5 @@
 
+stream = require 'stream'
 should = require 'should'
 superexec = if process.env.SUPEREXEC_COV then require '../lib-cov/index' else require '../lib/index'
 connect = if process.env.SUPEREXEC_COV then require '../lib-cov/connect' else require '../lib/connect'
@@ -109,6 +110,19 @@ describe 'exec', ->
             ssherr.should.eql stderr
             next()
 
+  it 'provide stream reader as stdout', (next) ->
+    connect host: 'localhost', (err, connection) ->
+      return next err if err
+      data = ''
+      out = superexec
+        ssh: connection
+        cmd: "cat #{__filename}"
+      out.stdout.on 'readable', ->
+        while d = out.stdout.read()
+          data += d.toString()
+      out.stdout.on 'end', ->
+        data.should.include 'myself'
+        next()
 
 
 

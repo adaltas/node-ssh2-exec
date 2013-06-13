@@ -3,17 +3,8 @@ util = require 'util'
 ssh2 = require 'ssh2'
 connect = require './connect'
 {EventEmitter} = require 'events'
-Stream = require 'stream'
+stream = require 'stream'
 {exec} = require 'child_process'
-
-ProxyStream = () ->
-ProxyStream::pause = ->
-  @paused = true
-ProxyStream::resume = ->
-  @paused = false
-  @emit 'drain'
-  # do nothing
-util.inherits ProxyStream, Stream
 
 ###
 `exec([command], options, [callback])`
@@ -46,8 +37,12 @@ module.exports = (command, options, callback) ->
 
   if options.ssh
     child = new EventEmitter
-    child.stdout = new ProxyStream
-    child.stderr = new ProxyStream
+    # child.stdout = new ProxyStream
+    # child.stderr = new ProxyStream
+    child.stdout = new stream.Readable
+    child.stdout._read = (_size) ->
+    child.stderr = new stream.Readable
+    child.stderr._read = -> 
     connection = null
     run = ->
       stdout = stderr = ''
@@ -55,19 +50,20 @@ module.exports = (command, options, callback) ->
       cmdOptions = {}
       cmdOptions.env = options.env if options.env
       cmdOptions.pty = options.pty if options.pty
-      connection.exec command, cmdOptions, (err, stream) ->
+      connection.exec command, cmdOptions, (err, process) ->
         if err
           callback err if callback
           return
-        stream.on 'data', (data, extended) ->
+        process.on 'data', (data, extended) ->
           if extended is 'stderr'
-            type = 'stderr'
+            child.stderr.push data
             stderr += data if callback
           else
-            type = 'stdout'
+            child.stdout.push data
             stdout += data if callback
-          child[type].emit 'data', data
-        stream.on 'exit', (code, signal) ->
+        process.on 'exit', (code, signal) ->
+          child.stdout.push null
+          child.stderr.push null
           if code isnt 0
             err = new Error 'Error'
             err.code = code
