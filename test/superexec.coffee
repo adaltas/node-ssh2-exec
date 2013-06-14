@@ -24,7 +24,7 @@ describe 'exec', ->
       child.stderr.on 'data', (data) ->
         stderr += data
       child.on 'exit', (code) ->
-        stderr.should.include 'No such file or directory'
+        stderr.should.include 'ls:'
         code.should.eql 1
         next()
 
