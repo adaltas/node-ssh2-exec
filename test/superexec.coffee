@@ -25,7 +25,7 @@ describe 'exec', ->
         stderr += data
       child.on 'exit', (code) ->
         stderr.should.include 'ls:'
-        code.should.eql 1
+        code.should.be.above 0
         next()
 
   they 'handle a command string as first argument', (ssh, next) ->
