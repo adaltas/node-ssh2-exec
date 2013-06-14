@@ -34,7 +34,6 @@ module.exports = (command, options, callback) ->
       command = options.cmd
     else
       return callback new Error 'Invalid arguments'
-
   if options.ssh
     child = new EventEmitter
     # child.stdout = new ProxyStream

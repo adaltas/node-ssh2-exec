@@ -1,128 +1,50 @@
 
 stream = require 'stream'
 should = require 'should'
-superexec = if process.env.SUPEREXEC_COV then require '../lib-cov/index' else require '../lib/index'
-connect = if process.env.SUPEREXEC_COV then require '../lib-cov/connect' else require '../lib/connect'
+superexec = require if process.env.SUPEREXEC_COV then '../lib-cov/index' else '../lib/index'
+connect = require if process.env.SUPEREXEC_COV then '../lib-cov/connect' else '../lib/connect'
+they = require if process.env.SUPEREXEC_COV then '../lib-cov/they' else '../lib/they'
 
 describe 'exec', ->
 
-  it 'handle a command and a callback', (next) ->
-    connect host: 'localhost', (err, connection) ->
+  they 'handle a command and a callback', (ssh, next) ->
+    superexec
+      ssh: ssh
+      cmd: "cat #{__filename}"
+    , (err, stdout, stderr) ->
       return next err if err
-      superexec
-        ssh: connection
-        cmd: 'ls -l'
-      , (err, ssh2out, ssh2err) ->
-        return next err if err
-        superexec
-          ssh: host: 'localhost'
-          cmd: 'ls -l'
-        , (err, sshout, ssherr) ->
-          return next err if err
-          ssh2out.should.eql sshout
-          ssh2err.should.eql ssherr
-          superexec
-            cwd: process.env['HOME']
-            cmd: 'ls -l'
-          , (err, stdout, stderr) ->
-            return next err if err
-            sshout.should.eql stdout
-            ssherr.should.eql stderr
-            next()
+      stdout.should.include 'myself'
+      next()
 
-  it 'handle a command without a callback', (next) ->
-    connect host: 'localhost', (err, connection) ->
-      return next err if err
-      ssh2out = ssh2err = ''
-      # SSH with ssh2 instance
+  they 'handle a failed command without a callback', (ssh, next) ->
+      stderr = ''
       child = superexec 
-        ssh: connection
-        cmd: 'ls -l'
-      child.stdout.on 'data', (data) ->
-        ssh2out += data
-      child.stderr.on 'data', (data) ->
-        ssh2err += data
-      child.on 'exit', (code) ->
-        sshout = ssherr = ''
-        # SSH with object
-        child = superexec 
-          ssh: host: 'localhost'
-          cmd: 'ls -l'
-        child.stdout.on 'data', (data) ->
-          sshout += data
-        child.stderr.on 'data', (data) ->
-          ssherr += data
-        child.on 'exit', (code) ->
-          ssh2out.should.eql sshout
-          ssh2err.should.eql ssherr
-          # Local
-          stdout = stderr = ''
-          child = superexec 
-            cwd: process.env['HOME']
-            cmd: 'ls -l'
-          child.stdout.on 'data', (data) ->
-            stdout += data
-          child.stderr.on 'data', (data) ->
-            stderr += data
-          child.on 'exit', (code) ->
-            sshout.should.eql stdout
-            ssherr.should.eql stderr
-            next()
-
-  it 'handle a failed command without a callback', (next) ->
-    connect host: 'localhost', (err, connection) ->
-      return next err if err
-      sshout = ssherr = ''
-      # SSH with ssh2 instance
-      child = superexec 
-        ssh: connection
+        ssh: ssh
         cmd: 'ls -l ~/doesntexist'
-      child.stdout.on 'data', (data) ->
-        sshout += data
       child.stderr.on 'data', (data) ->
-        ssherr += data
-      child.on 'exit', (sshcode) ->
-        stdout = stderr = ''
-        child = superexec 
-          cmd: 'ls -l ~/doesntexist'
-        child.stdout.on 'data', (data) ->
-          stdout += data
-        child.stderr.on 'data', (data) ->
-          stderr += data
-        child.on 'exit', (code) ->
-          sshout.should.eql stdout
-          ssherr.should.eql stderr
-          sshcode.should.eql code
-          next()
-
-  it 'handle a command string as first argument', (next) ->
-    connect host: 'localhost', (err, connection) ->
-      return next err if err
-      superexec 'ls -l', ssh: connection, (err, ssh2out, ssh2err) ->
-        return next err if err
-        superexec 'ls -l', ssh: host: 'localhost', (err, sshout, ssherr) ->
-          return next err if err
-          ssh2out.should.eql sshout
-          ssh2err.should.eql ssherr
-          superexec 'ls -l', cwd: process.env['HOME'], (err, stdout, stderr) ->
-            return next err if err
-            sshout.should.eql stdout
-            ssherr.should.eql stderr
-            next()
-
-  it 'provide stream reader as stdout', (next) ->
-    connect host: 'localhost', (err, connection) ->
-      return next err if err
-      data = ''
-      out = superexec
-        ssh: connection
-        cmd: "cat #{__filename}"
-      out.stdout.on 'readable', ->
-        while d = out.stdout.read()
-          data += d.toString()
-      out.stdout.on 'end', ->
-        data.should.include 'myself'
+        stderr += data
+      child.on 'exit', (code) ->
+        stderr.should.include 'No such file or directory'
+        code.should.eql 1
         next()
+
+  they 'handle a command string as first argument', (ssh, next) ->
+    superexec "cat #{__filename}", ssh: ssh, (err, stdout, stderr) ->
+      return next err if err
+      stdout.should.include 'myself'
+      next()
+
+  they.skip 'local', 'provide stream reader as stdout', (ssh, next) ->
+    data = ''
+    out = superexec
+      ssh: ssh
+      cmd: "cat #{__filename}"
+    out.stdout.on 'readable', ->
+      while d = out.stdout.read()
+        data += d.toString()
+    out.stdout.on 'end', ->
+      data.should.include 'myself'
+      next()
 
 
 
