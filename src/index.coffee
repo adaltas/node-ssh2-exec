@@ -47,26 +47,27 @@ module.exports = (command, options, callback) ->
       cmdOptions = {}
       cmdOptions.env = options.env if options.env
       cmdOptions.pty = options.pty if options.pty
-      connection.exec command, cmdOptions, (err, process) ->
-        if err
-          callback err if callback
-          return
-        process.on 'data', (data, extended) ->
+      connection.exec command, cmdOptions, (err, proc) ->
+        return callback err if err and callback
+        proc.on 'data', (data, extended) ->
           if extended is 'stderr'
             child.stderr.push data
             stderr += data if callback
           else
             child.stdout.push data
             stdout += data if callback
-        process.on 'exit', (code, signal) ->
-          child.stdout.push null
-          child.stderr.push null
-          if code isnt 0
-            err = new Error 'Error'
-            err.code = code
-            err.signal = signal
-          child.emit 'exit', code
-          callback null, stdout, stderr if callback
+        proc.on 'exit', (code, signal) ->
+          # We had problem where data was fired
+          # after exit in wand
+          process.nextTick ->
+            if code isnt 0
+              err = new Error 'Error'
+              err.code = code
+              err.signal = signal
+            child.emit 'exit', code
+            child.stdout.push null
+            child.stderr.push null
+            callback null, stdout, stderr if callback
     if options.ssh instanceof ssh2
       connection = options.ssh
       run()
