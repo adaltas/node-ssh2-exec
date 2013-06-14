@@ -36,8 +36,6 @@ module.exports = (command, options, callback) ->
       return callback new Error 'Invalid arguments'
   if options.ssh
     child = new EventEmitter
-    # child.stdout = new ProxyStream
-    # child.stderr = new ProxyStream
     child.stdout = new stream.Readable
     child.stdout._read = (_size) ->
     child.stderr = new stream.Readable
@@ -86,6 +84,12 @@ module.exports = (command, options, callback) ->
     cmdOptions.cwd = options.cwd or null
     cmdOptions.uid = options.uid if options.uid
     cmdOptions.gid = options.gid if options.gid
-    exec command, cmdOptions, callback
+    # With Node 0.10.10, child is an instance of old stream
+    stdout = new stream.Readable
+    stderr = new stream.Readable
+    child = exec command, cmdOptions, callback
+    child.stdout = stdout.wrap child.stdout
+    child.stderr = stderr.wrap child.stderr
+    child
 
 

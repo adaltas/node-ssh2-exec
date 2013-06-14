@@ -34,7 +34,7 @@ describe 'exec', ->
       stdout.should.include 'myself'
       next()
 
-  they.skip 'local', 'provide stream reader as stdout', (ssh, next) ->
+  they 'provide stream reader as stdout', (ssh, next) ->
     data = ''
     out = superexec
       ssh: ssh
