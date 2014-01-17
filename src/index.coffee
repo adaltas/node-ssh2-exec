@@ -43,6 +43,7 @@ module.exports = (command, options, callback) ->
     connection = null
     run = ->
       stdout = stderr = ''
+      exit = false # We've seen cases where data is emited after exit
       command = "cd #{options.cwd}; #{command}" if options.cwd
       cmdOptions = {}
       cmdOptions.env = options.env if options.env
@@ -50,6 +51,7 @@ module.exports = (command, options, callback) ->
       connection.exec command, cmdOptions, (err, proc) ->
         return callback err if err and callback
         proc.on 'data', (data, extended) ->
+          return if exit
           if extended is 'stderr'
             child.stderr.push data
             stderr += data if callback
@@ -64,9 +66,10 @@ module.exports = (command, options, callback) ->
               err = new Error 'Error'
               err.code = code
               err.signal = signal
-            child.emit 'exit', code
+            exit = true
             child.stdout.push null
             child.stderr.push null
+            child.emit 'exit', code
             callback null, stdout, stderr if callback
     if options.ssh instanceof ssh2
       connection = options.ssh
