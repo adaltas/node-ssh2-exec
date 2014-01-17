@@ -10,6 +10,7 @@ they = (msg, callback) ->
     callback.call @, null, next
   it "#{msg} (remote)", (next) ->
     connect host: 'localhost', (err, ssh) =>
+      return next err if err
       callback.call @, ssh, next
 they.only = (mode, msg, callback) ->
   if arguments.length is 2
