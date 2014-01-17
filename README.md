@@ -21,6 +21,14 @@ Requiring the module export a single function expecting 1, 2 or 3 arguments. The
 
 Like in the native NodeJS API, the callback is not required in case you with to work with the returned child stream. The command argument is also facultative since it could be provided under the "cmd" property of the options object.
 
+Options include:   
+
+*   `username` SSH user   
+*   `privateKey` String representing the private key, required when no password is provided and no private is found   
+*   `privateKeyPath` Path from where to read the private key, default to "~/.ssh/id_rsa"   
+*   `port` SSH port, default to 22   
+*   `password` SSH password, required when no private key is provided or found   
+
 Example
 -------
 
