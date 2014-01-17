@@ -1,7 +1,7 @@
 [![Build Status](https://secure.travis-ci.org/wdavidw/node-superexec.png)](http://travis-ci.org/wdavidw/node-superexec)
 
 Node.js SuperExec
-================
+=================
 
 SuperExec is a small Node.js module to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions.
 
@@ -21,16 +21,27 @@ Requiring the module export a single function expecting 1, 2 or 3 arguments. The
 
 Like in the native NodeJS API, the callback is not required in case you with to work with the returned child stream. The command argument is also facultative since it could be provided under the "cmd" property of the options object.
 
-Options include:   
+Valid `options` properties are:   
 
-*   `username` SSH user   
-*   `privateKey` String representing the private key, required when no password is provided and no private is found   
-*   `privateKeyPath` Path from where to read the private key, default to "~/.ssh/id_rsa"   
-*   `port` SSH port, default to 22   
-*   `password` SSH password, required when no private key is provided or found   
+-   `ssh`   SSH connection if the command must run remotely   
+-   `cmd`   Command to run unless provided as first argument   
+-   `cwd`   Current working directory   
+-   `env`   An environment to use for the execution of the command.   
+-   `pty`   Set to true to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. Apply only to SSH remote commands.   
+-   `cwd`   Apply only to local commands.   
+-   `uid`   Apply only to local commands.   
+-   `gid`   Apply only to local commands.   
 
-Example
--------
+Valid `options.ssh` properties are:   
+
+-   `username`       SSH user   
+-   `privateKey`     String representing the private key, required when no password is provided and no private is found   
+-   `privateKeyPath` Path from where to read the private key, default to "~/.ssh/id_rsa"   
+-   `port`           SSH port, default to 22   
+-   `password`       SSH password, required when no private key is provided or found   
+
+Examples
+--------
 
 A command, a configuration object and a callback:
 
@@ -81,4 +92,4 @@ Contributors
 
 *   David Worms: <https://github.com/wdavidw>
 
-[travis]: https://travis-ci.org/#!/wdavidw/node-csv-parser
+[travis]: https://travis-ci.org/#!/wdavidw/node-superexec
