@@ -26,6 +26,7 @@ Valid `options` properties are:
 -   `ssh`   SSH connection if the command must run remotely   
 -   `cmd`   Command to run unless provided as first argument   
 -   `cwd`   Current working directory   
+-   `end`   Close the SSH connection on exit, default to true if an ssh connection instance is provided.   
 -   `env`   An environment to use for the execution of the command.   
 -   `pty`   Set to true to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. Apply only to SSH remote commands.   
 -   `cwd`   Apply only to local commands.   

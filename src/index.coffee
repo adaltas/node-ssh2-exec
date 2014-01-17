@@ -10,15 +10,16 @@ stream = require 'stream'
 `exec([command], options, [callback])`
 ------------------------------------
 
-Valid `options` properties are:
--   *ssh*   SSH connection if the command must run remotely
--   *cmd*   Command to run unless provided as first argument
--   *cwd*   Current working directory
--   *env*   An environment to use for the execution of the command.
--   *pty*   Set to true to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. Apply only to SSH remote commands.
--   *cwd*   Apply only to local commands.
--   *uid*   Apply only to local commands.
--   *gid*   Apply only to local commands.
+Valid `options` properties are:   
+-   `ssh`   SSH connection if the command must run remotely   
+-   `cmd`   Command to run unless provided as first argument   
+-   `cwd`   Current working directory   
+-   `end`   Close the SSH connection on exit, default to true if an ssh connection instance is provided.   
+-   `env`   An environment to use for the execution of the command.   
+-   `pty`   Set to true to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. Apply only to SSH remote commands.   
+-   `cwd`   Apply only to local commands.   
+-   `uid`   Apply only to local commands.   
+-   `gid`   Apply only to local commands.  
 ###
 module.exports = (command, options, callback) ->
   if typeof arguments[0] is 'string'
@@ -63,22 +64,36 @@ module.exports = (command, options, callback) ->
           # after exit in wand
           process.nextTick ->
             if code isnt 0
-              err = new Error 'Error'
+              if stderr.trim().length
+                err = stderr.trim().split('\n')
+                err = err[err.length-1]
+              else
+                err = 'Child process exited abnormally'
+              err = new Error err
               err.code = code
               err.signal = signal
             exit = true
             child.stdout.push null
             child.stderr.push null
             child.emit 'exit', code
-            callback null, stdout, stderr if callback
+            if options.end
+              connection.end()
+              connection.on 'error', ->
+                callback err
+              connection.on 'close', ->
+                callback err, stdout, stderr if callback
+            else
+              callback err, stdout, stderr if callback
     if options.ssh instanceof ssh2
       connection = options.ssh
+      options.end ?= false
       run()
     else
       connect options.ssh, (err, ssh2) ->
         if err
           callback err if callback
           return
+        options.end ?= true
         connection = ssh2
         run()
     child

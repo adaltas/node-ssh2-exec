@@ -46,6 +46,27 @@ describe 'exec', ->
       data.should.include 'myself'
       next()
 
+  they 'exec with error', (ssh, next) ->
+    superexec
+      ssh: ssh
+      cmd: "invalidcommand"
+    , (err, stdout, stderr) ->
+      err.message.should.be.a.String
+      next()
+
+  they 'child with error', (ssh, next) ->
+    # console.log '--'
+    child = superexec
+      ssh: ssh
+      cmd: "invalidcommand"
+    child.on 'error', (err) ->
+      next new Error 'Should not be called'
+    child.on 'exit', (code) ->
+      code.should.eql 127
+      next()
+
+
+
 
 
 
