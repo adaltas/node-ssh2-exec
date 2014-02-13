@@ -5,18 +5,9 @@ superexec = require if process.env.SUPEREXEC_COV then '../lib-cov/index' else '.
 connect = require if process.env.SUPEREXEC_COV then '../lib-cov/connect' else '../lib/connect'
 they = require if process.env.SUPEREXEC_COV then '../lib-cov/they' else '../lib/they'
 
-describe 'exec', ->
+describe 'child', ->
 
-  they 'handle a command and a callback', (ssh, next) ->
-    superexec
-      ssh: ssh
-      cmd: "cat #{__filename}"
-    , (err, stdout, stderr) ->
-      return next err if err
-      stdout.should.include 'myself'
-      next()
-
-  they 'handle a failed command without a callback', (ssh, next) ->
+  they 'handle a failed command', (ssh, next) ->
       stderr = ''
       child = superexec 
         ssh: ssh
@@ -27,12 +18,6 @@ describe 'exec', ->
         stderr.should.include 'ls:'
         code.should.be.above 0
         next()
-
-  they 'handle a command string as first argument', (ssh, next) ->
-    superexec "cat #{__filename}", ssh: ssh, (err, stdout, stderr) ->
-      return next err if err
-      stdout.should.include 'myself'
-      next()
 
   they 'provide stream reader as stdout', (ssh, next) ->
     data = ''
@@ -46,15 +31,7 @@ describe 'exec', ->
       data.should.include 'myself'
       next()
 
-  they 'exec with error', (ssh, next) ->
-    superexec
-      ssh: ssh
-      cmd: "invalidcommand"
-    , (err, stdout, stderr) ->
-      err.message.should.be.a.String
-      next()
-
-  they 'child with error', (ssh, next) ->
+  they 'throw error when running an invalid command', (ssh, next) ->
     # console.log '--'
     child = superexec
       ssh: ssh
@@ -65,10 +42,15 @@ describe 'exec', ->
       code.should.eql 127
       next()
 
-
-
-
-
-
-
-
+  they 'stop command execution', (ssh, next) ->
+    child = superexec 
+      ssh: ssh
+      cmd: 'while true; do echo toto; sleep 1; done; exit 2'
+    child.on 'error', next
+    child.on 'exit', (code, signal) ->
+      signal.should.eql 'SIGTERM' unless ssh
+      signal.should.eql 'SIGPIPE' if ssh
+      next()
+    setTimeout ->
+      child.kill()
+    , 1000

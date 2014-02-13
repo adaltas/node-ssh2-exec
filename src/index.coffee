@@ -41,6 +41,8 @@ module.exports = (command, options, callback) ->
     child.stdout._read = (_size) ->
     child.stderr = new stream.Readable
     child.stderr._read = -> 
+    child.kill = ->
+      child.proc.end() if child.proc
     connection = null
     run = ->
       stdout = stderr = ''
@@ -51,6 +53,7 @@ module.exports = (command, options, callback) ->
       cmdOptions.pty = options.pty if options.pty
       connection.exec command, cmdOptions, (err, proc) ->
         return callback err if err and callback
+        child.proc = proc
         proc.on 'data', (data, extended) ->
           return if exit
           if extended is 'stderr'
@@ -75,7 +78,7 @@ module.exports = (command, options, callback) ->
             exit = true
             child.stdout.push null
             child.stderr.push null
-            child.emit 'exit', code
+            child.emit 'exit', code, signal
             if options.end
               connection.end()
               connection.on 'error', ->
