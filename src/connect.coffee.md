@@ -41,7 +41,6 @@ Note, the "privateKeyPath" option is provided as a conveniency to  prepare the
 
     module.exports = (options, callback) ->
       return callback null, options if options instanceof ssh2
-      options = clone options
       options.username ?= process.env['USER']
       if not options.password and not options.privateKey
         options.privateKeyPath ?= '~/.ssh/id_rsa'
