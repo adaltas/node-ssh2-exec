@@ -41,7 +41,8 @@ module.exports = (command, options, callback) ->
     child.stdout._read = (_size) ->
     child.stderr = new stream.Readable
     child.stderr._read = -> 
-    child.kill = ->
+    child.kill = (signal) ->
+      # child.proc.signal 'KILL' if child.proc
       child.proc.end() if child.proc
     connection = null
     run = ->
