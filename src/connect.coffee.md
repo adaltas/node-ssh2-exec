@@ -19,9 +19,9 @@ connection.connect options
 ...is simplified to:   
 
 ```coffee
-connect = require 'superexec/lib/connect'
+connect = require 'ssh2-exec/lib/connect'
 connect options, (err, ssh) ->
-  # ready or not, this is faster to write
+  # this is faster to write
 ```
 
     ssh2 = require 'ssh2'

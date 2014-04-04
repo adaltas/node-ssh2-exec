@@ -8,11 +8,11 @@ test: build
 		--reporter $(REPORTER)
 
 doc: build
-	@./node_modules/.bin/coffee src/doc $(SUPEREXEC_DOC)
+	@./node_modules/.bin/coffee src/doc $(SSH2_EXEC_DOC)
 
 coverage: build
 	@jscoverage --no-highlight lib lib-cov
-	@SUPEREXEC_COV=1 $(MAKE) test REPORTER=html-cov > doc/coverage.html
+	@SSH2_EXEC_COV=1 $(MAKE) test REPORTER=html-cov > doc/coverage.html
 	@rm -rf lib-cov
 
 .PHONY: test

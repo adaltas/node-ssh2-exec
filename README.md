@@ -1,17 +1,17 @@
-[![Build Status](https://secure.travis-ci.org/wdavidw/node-superexec.png)](http://travis-ci.org/wdavidw/node-superexec)
+[![Build Status](https://secure.travis-ci.org/wdavidw/node-ssh2-exec.png)](http://travis-ci.org/wdavidw/node-ssh2-exec)
 
-Node.js SuperExec
+Node.js ssh2-exec
 =================
 
-SuperExec is a small Node.js module to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions.
+The Node.js ssh2-exec package is used to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions.
 
 Installation
 ------------
 
-StartStop is open source and licensed under the new BSD license.
+This is OSS and licensed under the [new BSD license](https://github.com/wdavidw/node-ssh2-exec/blob/master/LICENSE.md).
 
 ```bash
-npm install superexec
+npm install ssh2-exec
 ```
 
 Usage
@@ -47,7 +47,7 @@ Examples
 A command, a configuration object and a callback:
 
 ```js
-exec = require('superexec');
+exec = require('ssh2-exec');
 exec('ls -la', {ssh: {host: 'localhost'}}, (err, stdout, stderr){
   console.log(stdout);
 });
@@ -56,7 +56,7 @@ exec('ls -la', {ssh: {host: 'localhost'}}, (err, stdout, stderr){
 A configuration object with a ssh2 connection and working a the return child object:
 
 ```js
-exec = require('superexec');
+exec = require('ssh2-exec');
 child = exec({cmd: 'ls -la', ssh: passSSH2Connection}, function(err, stdout, stderr){
   console.log(stdout);
 });
@@ -93,4 +93,4 @@ Contributors
 
 *   David Worms: <https://github.com/wdavidw>
 
-[travis]: https://travis-ci.org/#!/wdavidw/node-superexec
+[travis]: https://travis-ci.org/#!/wdavidw/node-ssh2-exec

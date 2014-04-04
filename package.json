@@ -1,9 +1,9 @@
 {
-  "name": "superexec",
+  "name": "ssh2-exec",
   "version": "0.1.0",
   "description": "Transparent use of `child_process.exec` and `ssh2.prototype.exec`",
   "keywords": ["child process", "exec", "ssh2", "ssh"],
-  "homepage": "http://www.adaltas.com/projects/node-superexec/",
+  "homepage": "http://www.adaltas.com/projects/node-ssh2-exec/",
   "author": "David Worms <david@adaltas.com>",
   "contributors": [],
   "engines": {
@@ -12,7 +12,7 @@
   "main": "./lib/index",
   "repository": {
     "type": "git",
-    "url": "git://github.com/wdavidw/node-superexec.git"
+    "url": "git://github.com/wdavidw/node-ssh2-exec.git"
   },
   "dependencies": {
     "ssh2": "latest"
