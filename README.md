@@ -1,14 +1,15 @@
-[![Build Status](https://secure.travis-ci.org/wdavidw/node-ssh2-exec.png)](http://travis-ci.org/wdavidw/node-ssh2-exec)
+[![Build Status](https://secure.travis-ci.org/wdavidw/node-ssh2-exec.png)][travis]
 
 Node.js ssh2-exec
 =================
 
-The Node.js ssh2-exec package is used to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions.
+The Node.js `ssh2-exec` package extends the [`ssh2`][ssh2] module to provide transparent usage between 
+the `child_process.exec` and `ssh2.prototype.exec` functions.
 
 Installation
 ------------
 
-This is OSS and licensed under the [new BSD license](https://github.com/wdavidw/node-ssh2-exec/blob/master/LICENSE.md).
+This is OSS and licensed under the [new BSD license][license].
 
 ```bash
 npm install ssh2-exec
@@ -47,25 +48,31 @@ Examples
 A command, a configuration object and a callback:
 
 ```js
+connect = require('ssh2-connect');
 exec = require('ssh2-exec');
-exec('ls -la', {ssh: {host: 'localhost'}}, (err, stdout, stderr){
-  console.log(stdout);
+connect({host: localhost}, function(err, ssh){
+  exec('ls -la', {ssh: ssh}, (err, stdout, stderr){
+    console.log(stdout);
+  });
 });
 ```
 
 A configuration object with a ssh2 connection and working a the return child object:
 
 ```js
+connect = require('ssh2-connect');
 exec = require('ssh2-exec');
-child = exec({cmd: 'ls -la', ssh: passSSH2Connection}, function(err, stdout, stderr){
-  console.log(stdout);
-});
-child.stdout.on('data', function(data){
-  console.log(stdout);
-});
-child.on('exit', function(code){
-  console.log('Exit', code);
-});
+connect({host: localhost}, function(err, ssh){
+  child = exec({cmd: 'ls -la', ssh: ssh}, function(err, stdout, stderr){
+    console.log(stdout);
+  });
+  child.stdout.on('data', function(data){
+    console.log(stdout);
+  });
+  child.on('exit', function(code){
+    console.log('Exit', code);
+  });
+})
 ```
 
 Development
@@ -93,4 +100,6 @@ Contributors
 
 *   David Worms: <https://github.com/wdavidw>
 
-[travis]: https://travis-ci.org/#!/wdavidw/node-ssh2-exec
+[travis]: http://travis-ci.org/wdavidw/node-ssh2-exec
+[ssh2]: https://github.com/mscdex/ssh2
+[license]: https://github.com/wdavidw/node-ssh2-exec/blob/master/LICENSE.md
