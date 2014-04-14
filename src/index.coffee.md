@@ -27,7 +27,7 @@ Valid `options` properties are:
           options = arguments[0]
           callback = arguments[1]
         else
-          opitons = {}
+          options = {}
           options.ssh = arguments[0]
           options.cmd = arguments[1]
       else if arguments.length is 3
