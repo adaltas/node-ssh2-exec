@@ -18,9 +18,18 @@ npm install ssh2-exec
 Usage
 -----
 
-Requiring the module export a single function expecting 1, 2 or 3 arguments. The function signature is `exec([command], options, [callback])`.
+Requiring the module export a single function. Its signature is:
 
-Like in the native NodeJS API, the callback is not required in case you with to work with the returned child stream. The command argument is also facultative since it could be provided under the "cmd" property of the options object.
+`exec(sshOrNull, command, [options], [callback])`
+
+Or
+
+`exec(options, [callback])`
+
+Like in the native NodeJS API, the callback is not required in case you wish to 
+work with the returned child stream. The "sshOrNull" and "command" arguments are
+also facultative because they could be provided respectively as the "ssh" and 
+"cmd" property of the options object.
 
 Valid `options` properties are:   
 
@@ -34,13 +43,7 @@ Valid `options` properties are:
 -   `uid`   Apply only to local commands.   
 -   `gid`   Apply only to local commands.   
 
-Valid `options.ssh` properties are:   
-
--   `username`       SSH user   
--   `privateKey`     String representing the private key, required when no password is provided and no private is found   
--   `privateKeyPath` Path from where to read the private key, default to "~/.ssh/id_rsa"   
--   `port`           SSH port, default to 22   
--   `password`       SSH password, required when no private key is provided or found   
+See the [ssh2] or [ssh2-connect] modules on how to create a new SSH connection. 
 
 Examples
 --------
