@@ -43,7 +43,7 @@ Valid `options` properties are:
 -   `uid`   Apply only to local commands.   
 -   `gid`   Apply only to local commands.   
 
-See the [ssh2] or [ssh2-connect] modules on how to create a new SSH connection. 
+See the [ssh2] and [ssh2-connect] modules on how to create a new SSH connection. 
 
 Examples
 --------
@@ -105,4 +105,5 @@ Contributors
 
 [travis]: http://travis-ci.org/wdavidw/node-ssh2-exec
 [ssh2]: https://github.com/mscdex/ssh2
+[ssh2-connect]: https://github.com/wdavidw/node-ssh2-connect
 [license]: https://github.com/wdavidw/node-ssh2-exec/blob/master/LICENSE.md
