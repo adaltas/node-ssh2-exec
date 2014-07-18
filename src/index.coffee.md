@@ -57,11 +57,13 @@ Valid `options` properties are:
       child.stderr = new stream.Readable
       child.stderr._read = -> 
       child.kill = (signal='KILL') ->
-        child.stream.signal signal if child.proc
+        console.log 'kill'
+        child.stream.write '\x03'
+        child.stream.end '\x03'
+        # child.stream.signal signal if child.proc
       # if ssh instanceof ssh2
       if options.ssh._host?
         stdout = stderr = ''
-        exit = false # We've seen cases where data is emited after exit
         options.cmd = "cd #{options.cwd}; #{options.cmd}" if options.cwd
         cmdOptions = {}
         cmdOptions.env = options.env if options.env
@@ -77,18 +79,9 @@ Valid `options` properties are:
             child.stdout.push data
             stdout += data if callback
           code = signal = null
-          stream.on 'exit', -> [code, signal] = arguments
-          stream.on 'end', ->
-            if code isnt 0
-              if stderr.trim().length
-                err = stderr.trim().split('\n')
-                err = err[err.length-1]
-              else
-                err = 'Child process exited abnormally'
-              err = new Error err
-              err.code = code
-              err.signal = signal
-            exit = true
+          exitCalled = endCalled = false
+          exit = ->
+            return unless exitCalled and endCalled
             child.stdout.push null
             child.stderr.push null
             child.emit 'exit', code, signal
@@ -100,6 +93,33 @@ Valid `options` properties are:
                 callback err, stdout, stderr if callback
             else
               callback err, stdout, stderr if callback
+          stream.on 'exit', ->
+            exitCalled = true
+            [code, signal] = arguments
+            exit()
+          stream.on 'end', ->
+            endCalled = true
+            if code isnt 0
+              if stderr.trim().length
+                err = stderr.trim().split('\n')
+                err = err[err.length-1]
+              else
+                err = 'Child process exited abnormally'
+              err = new Error err
+              err.code = code
+              err.signal = signal
+            exit()
+            # child.stdout.push null
+            # child.stderr.push null
+            # child.emit 'exit', code, signal
+            # if options.end
+            #   connection.end()
+            #   connection.on 'error', ->
+            #     callback err
+            #   connection.on 'close', ->
+            #     callback err, stdout, stderr if callback
+            # else
+            #   callback err, stdout, stderr if callback
       child
 
     local = module.exports.local = (options, callback) ->
