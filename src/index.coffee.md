@@ -56,9 +56,8 @@ Valid `options` properties are:
       child.stdout._read = (_size) ->
       child.stderr = new stream.Readable
       child.stderr._read = -> 
-      child.kill = (signal) ->
-        # child.proc.signal 'KILL' if child.proc
-        child.proc.end() if child.proc
+      child.kill = (signal='KILL') ->
+        child.stream.signal signal if child.proc
       # if ssh instanceof ssh2
       if options.ssh._host?
         stdout = stderr = ''
@@ -67,18 +66,19 @@ Valid `options` properties are:
         cmdOptions = {}
         cmdOptions.env = options.env if options.env
         cmdOptions.pty = options.pty if options.pty
-        options.ssh.exec options.cmd, cmdOptions, (err, proc) ->
+        options.ssh.exec options.cmd, cmdOptions, (err, stream) ->
           return callback err if err and callback
-          child.proc = proc
-          proc.on 'data', (data, extended) ->
-            return if exit
-            if extended is 'stderr'
-              child.stderr.push data
-              stderr += data if callback
-            else
-              child.stdout.push data
-              stdout += data if callback
-          proc.on 'end', (code, signal) ->
+          child.stream = stream
+          # stream.stderr.pipe child.stderr
+          stream.stderr.on 'data', (data) ->
+            child.stderr.push data
+            stderr += data if callback
+          stream.on 'data', (data) ->
+            child.stdout.push data
+            stdout += data if callback
+          code = signal = null
+          stream.on 'exit', -> [code, signal] = arguments
+          stream.on 'end', ->
             if code isnt 0
               if stderr.trim().length
                 err = stderr.trim().split('\n')
