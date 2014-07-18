@@ -78,31 +78,28 @@ Valid `options` properties are:
             else
               child.stdout.push data
               stdout += data if callback
-          proc.on 'exit', (code, signal) ->
-            # We had problem where data was fired
-            # after exit in wand
-            process.nextTick ->
-              if code isnt 0
-                if stderr.trim().length
-                  err = stderr.trim().split('\n')
-                  err = err[err.length-1]
-                else
-                  err = 'Child process exited abnormally'
-                err = new Error err
-                err.code = code
-                err.signal = signal
-              exit = true
-              child.stdout.push null
-              child.stderr.push null
-              child.emit 'exit', code, signal
-              if options.end
-                connection.end()
-                connection.on 'error', ->
-                  callback err
-                connection.on 'close', ->
-                  callback err, stdout, stderr if callback
+          proc.on 'end', (code, signal) ->
+            if code isnt 0
+              if stderr.trim().length
+                err = stderr.trim().split('\n')
+                err = err[err.length-1]
               else
+                err = 'Child process exited abnormally'
+              err = new Error err
+              err.code = code
+              err.signal = signal
+            exit = true
+            child.stdout.push null
+            child.stderr.push null
+            child.emit 'exit', code, signal
+            if options.end
+              connection.end()
+              connection.on 'error', ->
+                callback err
+              connection.on 'close', ->
                 callback err, stdout, stderr if callback
+            else
+              callback err, stdout, stderr if callback
       child
 
     local = module.exports.local = (options, callback) ->
