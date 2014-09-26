@@ -16,10 +16,10 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "coffee-script": "latest",
-    "mocha": "latest",
-    "should": "latest",
-    "ssh2-they": "latest"
+    "coffee-script": "^1.8.0",
+    "mocha": "^1.21.4",
+    "should": "^4.0.4",
+    "ssh2-they": "^0.0.4"
   },
   "optionalDependencies": {},
   "scripts": {
