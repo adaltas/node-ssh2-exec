@@ -71,7 +71,6 @@ Valid `options` properties are:
         options.ssh.exec options.cmd, cmdOptions, (err, stream) ->
           return callback err if err and callback
           child.stream = stream
-          # stream.stderr.pipe child.stderr
           stream.stderr.on 'data', (data) ->
             child.stderr.push data
             stderr += data if callback
@@ -79,12 +78,21 @@ Valid `options` properties are:
             child.stdout.push data
             stdout += data if callback
           code = signal = null
-          exitCalled = endCalled = false
+          exitCalled = stdoutCalled = stderrCalled = false
           exit = ->
-            return unless exitCalled and endCalled
+            return unless exitCalled and stdoutCalled and stderrCalled
             child.stdout.push null
             child.stderr.push null
             child.emit 'exit', code, signal
+            if code isnt 0
+              if stderr.trim().length
+                err = stderr.trim().split('\n')
+                err = err[err.length-1]
+              else
+                err = 'Child process exited abnormally'
+              err = new Error err
+              err.code = code
+              err.signal = signal
             if options.end
               connection.end()
               connection.on 'error', ->
@@ -98,28 +106,11 @@ Valid `options` properties are:
             [code, signal] = arguments
             exit()
           stream.on 'end', ->
-            endCalled = true
-            if code isnt 0
-              if stderr.trim().length
-                err = stderr.trim().split('\n')
-                err = err[err.length-1]
-              else
-                err = 'Child process exited abnormally'
-              err = new Error err
-              err.code = code
-              err.signal = signal
+            stdoutCalled = true
             exit()
-            # child.stdout.push null
-            # child.stderr.push null
-            # child.emit 'exit', code, signal
-            # if options.end
-            #   connection.end()
-            #   connection.on 'error', ->
-            #     callback err
-            #   connection.on 'close', ->
-            #     callback err, stdout, stderr if callback
-            # else
-            #   callback err, stdout, stderr if callback
+          stream.stderr.on 'end', ->
+            stderrCalled = true
+            exit()
       child
 
     local = module.exports.local = (options, callback) ->
