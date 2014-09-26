@@ -57,10 +57,10 @@ Valid `options` properties are:
       child.stderr = new stream.Readable
       child.stderr._read = -> 
       child.kill = (signal='KILL') ->
-        console.log 'kill'
-        child.stream.write '\x03'
-        child.stream.end '\x03'
-        # child.stream.signal signal if child.proc
+        # IMPORTANT: doesnt seem to work, test is skipped
+        # child.stream.write '\x03'
+        # child.stream.end '\x03'
+        child.stream.signal signal if child.stream
       # if ssh instanceof ssh2
       if options.ssh._host?
         stdout = stderr = ''
