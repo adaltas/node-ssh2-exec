@@ -8,11 +8,11 @@ describe 'exec', ->
   they 'ssh, cmd, no options, callback', (ssh, next) ->
     exec ssh, "cat #{__filename}", (err, stdout, stderr) ->
       return next err if err
-      stdout.should.include 'myself'
+      stdout.should.containEql 'myself'
       next()
 
   they 'options, callback', (ssh, next) ->
     exec ssh: ssh, cmd: "cat #{__filename}", (err, stdout, stderr) ->
       return next err if err
-      stdout.should.include 'myself'
+      stdout.should.containEql 'myself'
       next()

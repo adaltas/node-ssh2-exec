@@ -6,16 +6,16 @@ they = require 'ssh2-they'
 describe 'child', ->
 
   they 'handle a failed command', (ssh, next) ->
-      stderr = ''
-      child = exec 
-        ssh: ssh
-        cmd: 'ls -l ~/doesntexist'
-      child.stderr.on 'data', (data) ->
-        stderr += data
-      child.on 'exit', (code) ->
-        stderr.should.include 'ls:'
-        code.should.be.above 0
-        next()
+    stderr = ''
+    child = exec 
+      ssh: ssh
+      cmd: 'ls -l ~/doesntexist'
+    child.stderr.on 'data', (data) ->
+      stderr += data
+    child.on 'exit', (code) ->
+      stderr.should.containEql 'ls:'
+      code.should.be.above 0
+      next()
 
   they 'provide stream reader as stdout', (ssh, next) ->
     data = ''
@@ -26,7 +26,7 @@ describe 'child', ->
       while d = out.stdout.read()
         data += d.toString()
     out.stdout.on 'end', ->
-      data.should.include 'myself'
+      data.should.containEql 'myself'
       next()
 
   they 'throw error when running an invalid command', (ssh, next) ->

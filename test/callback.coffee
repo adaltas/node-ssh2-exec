@@ -11,7 +11,7 @@ describe 'exec', ->
       cmd: "cat #{__filename}"
     , (err, stdout, stderr) ->
       return next err if err
-      stdout.should.include 'myself'
+      stdout.should.containEql 'myself'
       next()
 
   they 'exec with error', (ssh, next) ->
