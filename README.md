@@ -54,7 +54,7 @@ A command, a configuration object and a callback:
 connect = require('ssh2-connect');
 exec = require('ssh2-exec');
 connect({host: localhost}, function(err, ssh){
-  exec('ls -la', {ssh: ssh}, (err, stdout, stderr){
+  exec('ls -la', {ssh: ssh}, function(err, stdout, stderr){
     console.log(stdout);
   });
 });
