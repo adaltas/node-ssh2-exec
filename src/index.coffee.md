@@ -62,56 +62,56 @@ Valid `options` properties are:
         # child.stream.end '\x03'
         child.stream.signal signal if child.stream
       # if ssh instanceof ssh2
-      if options.ssh._host?
-        stdout = stderr = ''
-        options.cmd = "cd #{options.cwd}; #{options.cmd}" if options.cwd
-        cmdOptions = {}
-        cmdOptions.env = options.env if options.env
-        cmdOptions.pty = options.pty if options.pty
-        options.ssh.exec options.cmd, cmdOptions, (err, stream) ->
-          return callback err if err and callback
-          return child.emit 'error', err if err
-          child.stream = stream
-          stream.stderr.on 'data', (data) ->
-            child.stderr.push data
-            stderr += data if callback
-          stream.on 'data', (data) ->
-            child.stdout.push data
-            stdout += data if callback
-          code = signal = null
-          exitCalled = stdoutCalled = stderrCalled = false
-          exit = ->
-            return unless exitCalled and stdoutCalled and stderrCalled
-            child.stdout.push null
-            child.stderr.push null
-            child.emit 'exit', code, signal
-            if code isnt 0
-              if stderr.trim().length
-                err = stderr.trim().split('\n')
-                err = err[err.length-1]
-              else
-                err = "Child process exited unexpectedly: #{JSON.stringify code}"
-              err = new Error err
-              err.code = code
-              err.signal = signal
-            if options.end
-              connection.end()
-              connection.on 'error', ->
-                callback err
-              connection.on 'close', ->
-                callback err, stdout, stderr if callback
+      # if options.ssh.config.host?
+      stdout = stderr = ''
+      options.cmd = "cd #{options.cwd}; #{options.cmd}" if options.cwd
+      cmdOptions = {}
+      cmdOptions.env = options.env if options.env
+      cmdOptions.pty = options.pty if options.pty
+      options.ssh.exec options.cmd, cmdOptions, (err, stream) ->
+        return callback err if err and callback
+        return child.emit 'error', err if err
+        child.stream = stream
+        stream.stderr.on 'data', (data) ->
+          child.stderr.push data
+          stderr += data if callback
+        stream.on 'data', (data) ->
+          child.stdout.push data
+          stdout += data if callback
+        code = signal = null
+        exitCalled = stdoutCalled = stderrCalled = false
+        exit = ->
+          return unless exitCalled and stdoutCalled and stderrCalled
+          child.stdout.push null
+          child.stderr.push null
+          child.emit 'exit', code, signal
+          if code isnt 0
+            if stderr.trim().length
+              err = stderr.trim().split('\n')
+              err = err[err.length-1]
             else
+              err = "Child process exited unexpectedly: #{JSON.stringify code}"
+            err = new Error err
+            err.code = code
+            err.signal = signal
+          if options.end
+            connection.end()
+            connection.on 'error', ->
+              callback err
+            connection.on 'close', ->
               callback err, stdout, stderr if callback
-          stream.on 'exit', ->
-            exitCalled = true
-            [code, signal] = arguments
-            exit()
-          stream.on 'end', ->
-            stdoutCalled = true
-            exit()
-          stream.stderr.on 'end', ->
-            stderrCalled = true
-            exit()
+          else
+            callback err, stdout, stderr if callback
+        stream.on 'exit', ->
+          exitCalled = true
+          [code, signal] = arguments
+          exit()
+        stream.on 'end', ->
+          stdoutCalled = true
+          exit()
+        stream.stderr.on 'end', ->
+          stderrCalled = true
+          exit()
       child
 
     local = module.exports.local = (options, callback) ->
