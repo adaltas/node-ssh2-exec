@@ -70,6 +70,7 @@ Valid `options` properties are:
         cmdOptions.pty = options.pty if options.pty
         options.ssh.exec options.cmd, cmdOptions, (err, stream) ->
           return callback err if err and callback
+          return child.emit 'error', err if err
           child.stream = stream
           stream.stderr.on 'data', (data) ->
             child.stderr.push data
