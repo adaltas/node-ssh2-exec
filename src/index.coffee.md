@@ -68,6 +68,7 @@ Valid `options` properties are:
       cmdOptions = {}
       cmdOptions.env = options.env if options.env
       cmdOptions.pty = options.pty if options.pty
+      cmdOptions.x11 = options.x11 if options.x11
       options.ssh.exec options.cmd, cmdOptions, (err, stream) ->
         return callback err if err and callback
         return child.emit 'error', err if err
