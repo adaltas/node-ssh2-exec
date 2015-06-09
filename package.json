@@ -4,6 +4,7 @@
   "description": "Transparent use of `child_process.exec` and `ssh2.prototype.exec`",
   "keywords": ["child process", "exec", "ssh2", "ssh"],
   "homepage": "https://github.com/wdavidw/node-ssh2-exec",
+  "license": "BSD-3-Clause",
   "author": "David Worms <david@adaltas.com>",
   "contributors": [],
   "engines": {
