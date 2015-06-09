@@ -61,8 +61,6 @@ Valid `options` properties are:
         # child.stream.write '\x03'
         # child.stream.end '\x03'
         child.stream.signal signal if child.stream
-      # if ssh instanceof ssh2
-      # if options.ssh.config.host?
       stdout = stderr = ''
       options.cmd = "cd #{options.cwd}; #{options.cmd}" if options.cwd
       cmdOptions = {}
