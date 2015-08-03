@@ -70,7 +70,7 @@ connect({host: localhost}, function(err, ssh){
     console.log(stdout);
   });
   child.stdout.on('data', function(data){
-    console.log(stdout);
+    console.log(data);
   });
   child.on('exit', function(code){
     console.log('Exit', code);
