@@ -126,5 +126,3 @@ Valid `options` properties are:
       child.stdout = stdout.wrap child.stdout
       child.stderr = stderr.wrap child.stderr
       child
-
-
