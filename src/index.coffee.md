@@ -89,7 +89,7 @@ Valid `options` properties are:
               err = stderr.trim().split('\n')
               err = err[err.length-1]
             else
-              err = "Child process exited unexpectedly: #{JSON.stringify code}"
+              err = "Child process exited unexpectedly: code #{JSON.stringify code}, signal #{JSON.stringify signal}"
             err = new Error err
             err.code = code
             err.signal = signal
