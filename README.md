@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/wdavidw/node-ssh2-exec.png)][travis]
+[![Build Status](https://secure.travis-ci.org/adaltas/node-ssh2-exec.png)][travis]
 
 Node.js ssh2-exec
 =================
@@ -103,7 +103,7 @@ Contributors
 
 *   David Worms: <https://github.com/wdavidw>
 
-[travis]: http://travis-ci.org/wdavidw/node-ssh2-exec
+[travis]: http://travis-ci.org/adaltas/node-ssh2-exec
 [ssh2]: https://github.com/mscdex/ssh2
-[ssh2-connect]: https://github.com/wdavidw/node-ssh2-connect
-[license]: https://github.com/wdavidw/node-ssh2-exec/blob/master/LICENSE.md
+[ssh2-connect]: https://github.com/adaltas/node-ssh2-connect
+[license]: https://github.com/adaltas/node-ssh2-exec/blob/master/LICENSE.md
