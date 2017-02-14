@@ -95,12 +95,14 @@ Valid `options` properties are:
             err.signal = signal
           if options.end
             connection.end()
-            connection.on 'error', ->
+            connection.on 'error', (err) ->
               callback err
             connection.on 'close', ->
               callback err, stdout, stderr if callback
           else
             callback err, stdout, stderr if callback
+        stream.on 'error', (err) ->
+          console.log 'error', err
         stream.on 'exit', ->
           exitCalled = true
           [code, signal] = arguments
