@@ -86,6 +86,7 @@
           return unless exitCalled and stdoutCalled and stderrCalled
           child.stdout.push null
           child.stderr.push null
+          child.emit 'close', code, signal
           child.emit 'exit', code, signal
           if code isnt 0
             if stderr.trim().length
