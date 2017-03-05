@@ -6,7 +6,7 @@
 
     {EventEmitter} = require 'events'
     stream = require 'stream'
-    {exec} = require 'child_process'
+    {exec, spawn} = require 'child_process'
 
 ## Options
 
@@ -124,10 +124,7 @@
       cmdOptions.cwd = options.cwd or null
       cmdOptions.uid = options.uid if options.uid
       cmdOptions.gid = options.gid if options.gid
-      # With Node 0.10.10, we wrap because child is an instance of old stream API
-      stdout = new stream.Readable
-      stderr = new stream.Readable
-      child = exec options.cmd, cmdOptions, callback
-      child.stdout = stdout.wrap child.stdout
-      child.stderr = stderr.wrap child.stderr
-      child
+      if callback
+        exec options.cmd, cmdOptions, callback
+      else
+        spawn options.cmd, [], Object.assign cmdOptions, shell: options.shell or true
