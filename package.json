@@ -1,6 +1,6 @@
 {
   "name": "ssh2-exec",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Transparent use of `child_process.exec` and `ssh2.prototype.exec`",
   "keywords": ["child process", "exec", "ssh2", "ssh"],
   "homepage": "https://github.com/adaltas/node-ssh2-exec",
