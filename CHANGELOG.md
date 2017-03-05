@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* readme: use travis svg
 * remote: emit close event #6
 * local: use spawn if no callback #5
 * src: reformat doc

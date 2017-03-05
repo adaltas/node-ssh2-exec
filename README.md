@@ -1,4 +1,4 @@
-[![Build Status](https://secure.travis-ci.org/adaltas/node-ssh2-exec.png)][travis]
+[![Build Status](https://secure.travis-ci.org/adaltas/node-ssh2-exec.svg)][travis]
 
 Node.js ssh2-exec
 =================
