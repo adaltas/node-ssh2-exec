@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* package: latest dependencies
 * readme: use travis svg
 * remote: emit close event #6
 * local: use spawn if no callback #5
