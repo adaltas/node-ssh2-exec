@@ -2,7 +2,12 @@
   "name": "ssh2-exec",
   "version": "0.3.5",
   "description": "Transparent use of `child_process.exec` and `ssh2.prototype.exec`",
-  "keywords": ["child process", "exec", "ssh2", "ssh"],
+  "keywords": [
+    "child process",
+    "exec",
+    "ssh2",
+    "ssh"
+  ],
   "homepage": "https://github.com/adaltas/node-ssh2-exec",
   "license": "BSD-3-Clause",
   "author": "David Worms <david@adaltas.com>",
@@ -17,15 +22,15 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "coffee-script": "~1.12.4",
-    "mocha": "~3.2.0",
-    "should": "~11.2.0",
-    "ssh2-they": "~1.0.2"
+    "coffee-script": "~1.12.7",
+    "mocha": "~4.0.1",
+    "should": "~13.1.3",
+    "ssh2-they": "~1.0.4"
   },
   "optionalDependencies": {},
   "scripts": {
-    "coffee": "./node_modules/.bin/coffee -b -o lib src",
-    "pretest": "./node_modules/.bin/coffee -b -o lib src",
-    "test": "./node_modules/.bin/mocha --compilers coffee:coffee-script/register --reporter dot"
+    "coffee": "coffee -b -o lib src",
+    "pretest": "coffee -b -o lib src",
+    "test": "mocha test/*.coffee"
   }
 }

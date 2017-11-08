@@ -1,3 +1,6 @@
---compilers coffee:coffee-script/register
---reporter dot
---timeout 20000
+--throw-deprecation
+--require should
+--require coffee-script/register
+--timeout 40000
+--reporter spec
+--recursive

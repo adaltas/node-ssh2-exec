@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* test: update mocha
 * error: some err message in callback
 
 ## Version 0.3.5

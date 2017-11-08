@@ -1,5 +1,4 @@
 
-should = require 'should'
 exec = require if process.env.SSH2_EXEC_COV then '../lib-cov' else '../lib'
 they = require 'ssh2-they'
 
