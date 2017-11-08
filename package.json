@@ -28,9 +28,12 @@
   },
   "optionalDependencies": {},
   "scripts": {
-    "patch": "npm test && npm version patch -m 'Bump to version %s' && git push --tags && npm publish",
-    "minor": "npm test && npm version minor -m 'Bump to version %s' && git push --tags && npm publish",
-    "major": "npm test && npm version major -m 'Bump to version %s' && git push --tags && npm publish",
+    "preversion": "grep '## Trunk' CHANGELOG.md && npm test",
+    "version": "version=`cat package.json | grep '^  \"version\": ' | sed 's/.*\"\\([0-9\\.]*\\)\".*/\\1/'` && sed -i \"s/## Trunk/## Version $version/\" CHANGELOG.md && git add CHANGELOG.md",
+    "postversion": "git push && git push --tags && npm publish",
+    "patch": "npm version patch -m 'Bump to version %s'",
+    "minor": "npm version minor -m 'Bump to version %s'",
+    "major": "npm version major -m 'Bump to version %s'",
     "coffee": "coffee -b -o lib src",
     "pretest": "coffee -b -o lib src",
     "test": "mocha test/*.coffee"

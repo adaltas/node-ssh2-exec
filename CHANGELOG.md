@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* package: improve release commands
+
 ## Version 0.4.1
 
 * package: release commands
