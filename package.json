@@ -28,6 +28,9 @@
   },
   "optionalDependencies": {},
   "scripts": {
+    "patch": "npm test && npm version patch -m 'Bump to version %s' && git push --tags && npm publish",
+    "minor": "npm test && npm version minor -m 'Bump to version %s' && git push --tags && npm publish",
+    "major": "npm test && npm version major -m 'Bump to version %s' && git push --tags && npm publish",
     "coffee": "coffee -b -o lib src",
     "pretest": "coffee -b -o lib src",
     "test": "mocha test/*.coffee"

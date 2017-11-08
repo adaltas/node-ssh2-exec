@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Version 0.4.1
+
+* package: release commands
+
 ## Version 0.4.0
 
 * package: update to CoffeeScript 2
