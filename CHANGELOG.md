@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* package: update to CoffeeScript 2
 * test: update mocha
 * error: some err message in callback
 
