@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Trunk
+## Version 0.4.2
 
 * package: improve release commands
 
