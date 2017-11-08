@@ -3,6 +3,10 @@
 
 ## Trunk
 
+* error: some err message in callback
+
+## Version 0.3.5
+
 * package: latest dependencies
 * readme: use travis svg
 * remote: emit close event #6

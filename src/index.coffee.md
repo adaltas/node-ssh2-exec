@@ -47,7 +47,7 @@
         options.cmd = arguments[1]
         callback = arguments[3]
       else 
-        throw new Error 'Invalid arguments'
+        throw Error 'Invalid arguments'
       if options.ssh
         remote options, callback
       else
@@ -89,12 +89,12 @@
           child.emit 'close', code, signal
           child.emit 'exit', code, signal
           if code isnt 0
+            err = "Child process exited unexpectedly: code #{JSON.stringify code}"
+            err += if signal then ", signal #{JSON.stringify signal}" else ", no signal"
             if stderr.trim().length
-              err = stderr.trim().split('\n')
-              err = err[err.length-1]
-            else
-              err = "Child process exited unexpectedly: code #{JSON.stringify code}, signal #{JSON.stringify signal}"
-            err = new Error err
+              stderr = stderr.trim().split(/\r\n|[\n\r\u0085\u2028\u2029]/g)[0]
+              err += ", got #{JSON.stringify stderr}" 
+            err = Error err
             err.code = code
             err.signal = signal
           if options.end
@@ -109,6 +109,7 @@
           console.log 'error', err
         stream.on 'exit', ->
           exitCalled = true
+          # console.log '!! exec', arguments
           [code, signal] = arguments
           exit()
         stream.on 'end', ->
@@ -126,6 +127,16 @@
       cmdOptions.uid = options.uid if options.uid
       cmdOptions.gid = options.gid if options.gid
       if callback
-        exec options.cmd, cmdOptions, callback
+        exec options.cmd, cmdOptions, (err, stdout, stderr, args...) ->
+          if err
+            err = "Child process exited unexpectedly: code #{JSON.stringify err.code}"
+            err += if err.signal then ", signal #{JSON.stringify err.signal}" else ", no signal"
+            if stderr.trim().length
+              stderr = stderr.trim().split(/\r\n|[\n\r\u0085\u2028\u2029]/g)[0]
+              err += ", got #{JSON.stringify stderr}" 
+            err = Error err
+            err.code = err.code
+            err.signal = err.signal
+          callback err, stdout, stderr, args...
       else
         spawn options.cmd, [], Object.assign cmdOptions, shell: options.shell or true

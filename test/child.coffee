@@ -51,8 +51,3 @@ describe 'child', ->
     setTimeout ->
       child.kill()
     , 100
-
-
-
-
-

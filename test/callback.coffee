@@ -19,13 +19,6 @@ describe 'exec', ->
       ssh: ssh
       cmd: "invalidcommand"
     , (err, stdout, stderr) ->
-      err.message.should.be.a.String
+      err.message.should.be.a.String()
+      err.message.should.match /^Child process exited unexpectedly: code \d+, no signal, got ".*command not found.*"/
       next()
-
-
-
-
-
-
-
-
