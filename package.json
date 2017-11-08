@@ -31,5 +31,6 @@
     "coffee": "coffee -b -o lib src",
     "pretest": "coffee -b -o lib src",
     "test": "mocha test/*.coffee"
-  }
+  },
+  "dependencies": {}
 }
