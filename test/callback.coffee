@@ -19,5 +19,5 @@ describe 'exec', ->
       cmd: "invalidcommand"
     , (err, stdout, stderr) ->
       err.message.should.be.a.String()
-      err.message.should.match /^Child process exited unexpectedly: code \d+, no signal, got ".*command not found.*"/
+      err.message.should.match /^Child process exited unexpectedly: code \d+, no signal, got ".*invalidcommand.*"$/
       next()
