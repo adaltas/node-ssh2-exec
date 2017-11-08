@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Trunk
+## Version 0.4.0
 
 * package: update to CoffeeScript 2
 * test: update mocha
