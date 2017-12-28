@@ -2,7 +2,7 @@
 # Module `exec`
 
 `exec(sshOrNull, command, [options], [callback])`
-`exec(options, [callback])`
+`exec(options..., [callback])`
 
     {EventEmitter} = require 'events'
     stream = require 'stream'
@@ -23,31 +23,26 @@
 ## Source Code
 
     module.exports = () ->
-      if arguments.length is 1
-        options = arguments[0]
-      else if arguments.length is 2
-        if typeof arguments[1] is 'function'
-          options = arguments[0]
-          callback = arguments[1]
-        else
-          options = {}
-          options.ssh = arguments[0]
-          options.cmd = arguments[1]
-      else if arguments.length is 3
-        if typeof arguments[2] is 'function'
-          callback = arguments[2]
-          options = {}
-        else
-          options = arguments[2]
-        options.ssh = arguments[0]
-        options.cmd = arguments[1]
-      else if arguments.length is 4
-        options = arguments[2]
-        options.ssh = arguments[0]
-        options.cmd = arguments[1]
-        callback = arguments[3]
-      else 
-        throw Error 'Invalid arguments'
+      args = [].slice.call(arguments)
+      options = {}
+      for arg, i in args
+        if arg is null or arg is undefined
+          throw Error "Invalid Argument: argument #{i} cannot be null, the connection is already set" if 'ssh' in options
+          options.ssh = arg
+        else if is_ssh_connection arg
+          throw Error "Invalid Argument: argument #{i} cannot be an SSH connection, the connection is already set" if 'ssh' in options
+          options.ssh = arg
+        else if is_object arg
+          for k, v of arg
+            options[k] = v
+        else if typeof arg is 'string'
+          throw Error "Invalid Argument: argument #{i} cannot be a string, a command already exists" if 'cmd' in options
+          options.cmd = arg
+        else if typeof arg is 'function'
+          throw Error "Invalid Argument: argument #{i} cannot be a function, a callback already exists" if callback
+          callback = arg
+        else 
+          throw Error "Invalid arguments: argument #{i} is invalid, got #{JSON.stringify arg}"
       if options.ssh
         remote options, callback
       else
@@ -109,7 +104,6 @@
           console.log 'error', err
         stream.on 'exit', ->
           exitCalled = true
-          # console.log '!! exec', arguments
           [code, signal] = arguments
           exit()
         stream.on 'end', ->
@@ -140,3 +134,11 @@
           callback err, stdout, stderr, args...
       else
         spawn options.cmd, [], Object.assign cmdOptions, shell: options.shell or true
+
+## Utilities
+
+    is_ssh_connection = (obj) ->
+      !!obj?.config?.host
+      
+    is_object = (obj) ->
+      obj and typeof obj is 'object' and not Array.isArray obj

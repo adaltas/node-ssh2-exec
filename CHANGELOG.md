@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* api: accept multiple options
+
 ## Version 0.4.2
 
 * package: improve release commands
