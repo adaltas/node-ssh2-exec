@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* project: latest dependencies
+
 ## Version 0.5.0
 
 * api: accept multiple options
