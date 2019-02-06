@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Trunk
+## Version 0.5.1
 
 * project: latest dependencies
 
