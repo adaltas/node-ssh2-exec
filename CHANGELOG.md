@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* project: remove lock file
+
 ## Version 0.5.1
 
 * project: latest dependencies
