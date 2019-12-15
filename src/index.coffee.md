@@ -10,15 +10,26 @@
 
 ## Options
 
-* `ssh`   SSH connection if the command must run remotely   
-* `cmd`   Command to run unless provided as first argument   
-* `cwd`   Current working directory   
-* `end`   Close the SSH connection on exit, default to true if an ssh connection instance is provided.   
-* `env`   An environment to use for the execution of the command.   
-* `pty`   Set to true to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. Apply only to SSH remote commands.   
-* `cwd`   Apply only to local commands.   
-* `uid`   Apply only to local commands.   
-* `gid`   Apply only to local commands.  
+* `ssh`   
+  SSH connection if the command must run remotely   
+* `cmd`   
+  Command to run unless provided as first argument   
+* `cwd`   
+  Current working directory   
+* `end`   
+  Close the SSH connection on exit, default to true if an ssh connection
+  instance is provided.   
+* `env`   
+  An environment to use for the execution of the command.   
+* `pty`   
+  Set to true to allocate a pseudo-tty with defaults, or an object containing
+  specific pseudo-tty settings. Apply only to SSH remote commands.   
+* `cwd`   
+  Apply only to local commands.   
+* `uid`   
+  Apply only to local commands.   
+* `gid`   
+  Apply only to local commands.  
 
 ## Source Code
 
@@ -41,7 +52,7 @@
         else if typeof arg is 'function'
           throw Error "Invalid Argument: argument #{i} cannot be a function, a callback already exists" if callback
           callback = arg
-        else 
+        else
           throw Error "Invalid arguments: argument #{i} is invalid, got #{JSON.stringify arg}"
       if options.ssh
         remote options, callback
@@ -53,7 +64,7 @@
       child.stdout = new stream.Readable
       child.stdout._read = (_size) ->
       child.stderr = new stream.Readable
-      child.stderr._read = -> 
+      child.stderr._read = ->
       child.kill = (signal='KILL') ->
         # IMPORTANT: doesnt seem to work, test is skipped
         # child.stream.write '\x03'
@@ -88,7 +99,7 @@
             err += if signal then ", signal #{JSON.stringify signal}" else ", no signal"
             if stderr.trim().length
               stderr = stderr.trim().split(/\r\n|[\n\r\u0085\u2028\u2029]/g)[0]
-              err += ", got #{JSON.stringify stderr}" 
+              err += ", got #{JSON.stringify stderr}"
             err = Error err
             err.code = code
             err.signal = signal
@@ -127,7 +138,7 @@
             err += if err.signal then ", signal #{JSON.stringify err.signal}" else ", no signal"
             if stderr.trim().length
               stderr = stderr.trim().split(/\r\n|[\n\r\u0085\u2028\u2029]/g)[0]
-              err += ", got #{JSON.stringify stderr}" 
+              err += ", got #{JSON.stringify stderr}"
             err = Error err
             err.code = err.code
             err.signal = err.signal
