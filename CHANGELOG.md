@@ -3,6 +3,7 @@
 
 ## Trunk
 
+* test: travis with latest node.js
 * api: rename cmd to command
 
 ## Version 0.5.3
