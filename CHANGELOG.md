@@ -3,7 +3,7 @@
 
 ## Trunk
 
-* api: raname cmd to command
+* api: rename cmd to command
 
 ## Version 0.5.3
 
