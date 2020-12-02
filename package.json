@@ -29,15 +29,25 @@
     "node": ">=0.10.1"
   },
   "main": "./lib/index",
+  "mocha": {
+    "throw-deprecation": true,
+    "require": [
+      "should",
+      "coffeescript/register"
+    ],
+    "timeout": 40000,
+    "reporter": "spec",
+    "recursive": true
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/adaltas/node-ssh2-exec.git"
   },
   "devDependencies": {
-    "coffeescript": "^2.4.1",
-    "mocha": "~6.2.2",
-    "should": "~13.2.3",
-    "ssh2-they": "~2.0.4"
+    "coffeescript": "^2.5.1",
+    "mocha": "^6.2.3",
+    "should": "^13.2.3",
+    "ssh2-they": "^2.2.1"
   },
   "optionalDependencies": {},
   "scripts": {
@@ -49,7 +59,7 @@
     "major": "npm version major -m 'Bump to version %s'",
     "build": "coffee -b -o lib src",
     "pretest": "coffee -b -o lib src",
-    "test": "mocha test/*.coffee"
+    "test": "mocha test/**/*.coffee"
   },
   "dependencies": {}
 }

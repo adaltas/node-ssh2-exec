@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* api: raname cmd to command
+
 ## Version 0.5.3
 
 * package: latest dependencies

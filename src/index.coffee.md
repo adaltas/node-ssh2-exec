@@ -12,7 +12,7 @@
 
 * `ssh`   
   SSH connection if the command must run remotely   
-* `cmd`   
+* `command`   
   Command to run unless provided as first argument   
 * `cwd`   
   Current working directory   
@@ -44,11 +44,14 @@
           throw Error "Invalid Argument: argument #{i} cannot be an SSH connection, the connection is already set" if 'ssh' in options
           options.ssh = arg
         else if is_object arg
+          if arg.cmd
+            arg.command = arg.cmd
+            console.warn('Option `cmd` is deprecated in favor of `command`')
           for k, v of arg
             options[k] = v
         else if typeof arg is 'string'
-          throw Error "Invalid Argument: argument #{i} cannot be a string, a command already exists" if 'cmd' in options
-          options.cmd = arg
+          throw Error "Invalid Argument: argument #{i} cannot be a string, a command already exists" if 'command' in options
+          options.command = arg
         else if typeof arg is 'function'
           throw Error "Invalid Argument: argument #{i} cannot be a function, a callback already exists" if callback
           callback = arg
@@ -71,12 +74,12 @@
         # child.stream.end '\x03'
         child.stream.signal signal if child.stream
       stdout = stderr = ''
-      options.cmd = "cd #{options.cwd}; #{options.cmd}" if options.cwd
-      cmdOptions = {}
-      cmdOptions.env = options.env if options.env
-      cmdOptions.pty = options.pty if options.pty
-      cmdOptions.x11 = options.x11 if options.x11
-      options.ssh.exec options.cmd, cmdOptions, (err, stream) ->
+      options.command = "cd #{options.cwd}; #{options.command}" if options.cwd
+      commandOptions = {}
+      commandOptions.env = options.env if options.env
+      commandOptions.pty = options.pty if options.pty
+      commandOptions.x11 = options.x11 if options.x11
+      options.ssh.exec options.command, commandOptions, (err, stream) ->
         return callback err if err and callback
         return child.emit 'error', err if err
         child.stream = stream
@@ -126,13 +129,13 @@
       child
 
     local = module.exports.local = (options, callback) ->
-      cmdOptions = {}
-      cmdOptions.env = options.env or process.env
-      cmdOptions.cwd = options.cwd or null
-      cmdOptions.uid = options.uid if options.uid
-      cmdOptions.gid = options.gid if options.gid
+      commandOptions = {}
+      commandOptions.env = options.env or process.env
+      commandOptions.cwd = options.cwd or null
+      commandOptions.uid = options.uid if options.uid
+      commandOptions.gid = options.gid if options.gid
       if callback
-        exec options.cmd, cmdOptions, (err, stdout, stderr, args...) ->
+        exec options.command, commandOptions, (err, stdout, stderr, args...) ->
           if err
             err = "Child process exited unexpectedly: code #{JSON.stringify err.code}"
             err += if err.signal then ", signal #{JSON.stringify err.signal}" else ", no signal"
@@ -144,7 +147,7 @@
             err.signal = err.signal
           callback err, stdout, stderr, args...
       else
-        spawn options.cmd, [], Object.assign cmdOptions, shell: options.shell or true
+        spawn options.command, [], Object.assign commandOptions, shell: options.shell or true
 
 ## Utilities
 

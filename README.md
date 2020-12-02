@@ -30,13 +30,13 @@ Or
 Like in the native NodeJS API, the callback is not required in case you wish to
 work with the returned child stream. The "sshOrNull" and "command" arguments are
 also facultative because they could be provided respectively as the "ssh" and
-"cmd" property of the options object.
+"command" property of the options object.
 
 Valid `options` properties are:   
 
 - `ssh`   
   SSH connection if the command must run remotely   
-- `cmd`   
+- `command`   
   Command to run unless provided as first argument   
 - `cwd`   
   Current working directory   
@@ -78,7 +78,7 @@ object:
 connect = require('ssh2-connect');
 exec = require('ssh2-exec');
 connect({host: localhost}, function(err, ssh){
-  child = exec({cmd: 'ls -la', ssh: ssh}, function(err, stdout, stderr){
+  child = exec({command: 'ls -la', ssh: ssh}, function(err, stdout, stderr){
     console.log(stdout);
   });
   child.stdout.on('data', function(data){
