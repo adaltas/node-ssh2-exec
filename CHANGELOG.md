@@ -1,7 +1,7 @@
 
 # Changelog
 
-## Trunk
+## Version 0.6.0
 
 * test: travis with latest node.js
 * api: rename cmd to command
