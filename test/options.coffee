@@ -12,10 +12,10 @@ describe 'options', ->
     stdout = ''
     child = exec
       ssh: ssh
-      env: 'LANG': 'fr'
+      env: 'LANG': 'tv'
       command: 'env | grep LANG'
     child.stdout.on 'data', (data) ->
       stdout += data
     child.on 'exit', (code) ->
-      stdout.trim().should.eql 'LANG=fr'
+      stdout.trim().should.eql 'LANG=tv'
       next()
