@@ -1,5 +1,5 @@
 
-exec = require if process.env.SSH2_EXEC_COV then '../lib-cov/index' else '../lib/index'
+exec = require '../src/index'
 config = require '../test'
 they = require('ssh2-they').configure config
 
