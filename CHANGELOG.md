@@ -1,6 +1,10 @@
 
 # Changelog
 
+## Trunk
+
+* feat: support stdio option
+
 ## Version 0.6.0
 
 * test: travis with latest node.js

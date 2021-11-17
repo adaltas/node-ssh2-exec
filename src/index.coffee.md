@@ -134,6 +134,7 @@
       commandOptions.cwd = options.cwd or null
       commandOptions.uid = options.uid if options.uid
       commandOptions.gid = options.gid if options.gid
+      commandOptions.stdio = options.stdio if options.stdio
       if callback
         exec options.command, commandOptions, (err, stdout, stderr, args...) ->
           if err
