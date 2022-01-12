@@ -98,12 +98,16 @@
           child.emit 'close', code, signal
           child.emit 'exit', code, signal
           if code isnt 0
-            err = "Child process exited unexpectedly: code #{JSON.stringify code}"
-            err += if signal then ", signal #{JSON.stringify signal}" else ", no signal"
             if stderr.trim().length
-              stderr = stderr.trim().split(/\r\n|[\n\r\u0085\u2028\u2029]/g)[0]
-              err += ", got #{JSON.stringify stderr}"
-            err = Error err
+              debug = stderr.trim().split(/\r\n|[\n\r\u0085\u2028\u2029]/g)[0]
+            err = Error [
+              'Child process exited unexpectedly: '
+              "code #{JSON.stringify code}"
+              if signal
+              then ", signal #{JSON.stringify signal}"
+              else ", no signal"
+              ", got #{JSON.stringify debug}" if debug
+            ].join ''
             err.code = code
             err.signal = signal
           if options.end
@@ -111,11 +115,11 @@
             connection.on 'error', (err) ->
               callback err
             connection.on 'close', ->
-              callback err, stdout, stderr if callback
+              callback err, stdout, stderr, code if callback
           else
-            callback err, stdout, stderr if callback
+            callback err, stdout, stderr, code if callback
         stream.on 'error', (err) ->
-          console.log 'error', err
+          console.error 'error', err
         stream.on 'exit', ->
           exitCalled = true
           [code, signal] = arguments
@@ -138,15 +142,20 @@
       if callback
         exec options.command, commandOptions, (err, stdout, stderr, args...) ->
           if err
-            err = "Child process exited unexpectedly: code #{JSON.stringify err.code}"
-            err += if err.signal then ", signal #{JSON.stringify err.signal}" else ", no signal"
             if stderr.trim().length
-              stderr = stderr.trim().split(/\r\n|[\n\r\u0085\u2028\u2029]/g)[0]
-              err += ", got #{JSON.stringify stderr}"
-            err = Error err
-            err.code = err.code
-            err.signal = err.signal
-          callback err, stdout, stderr, args...
+              debug = stderr.trim().split(/\r\n|[\n\r\u0085\u2028\u2029]/g)[0]
+            {code, signal} = err
+            err = Error [
+              "Child process exited unexpectedly: "
+              "code #{JSON.stringify err.code}, "
+              if err.signal
+              then "signal #{JSON.stringify err.signal}"
+              else "no signal"
+              ", got #{JSON.stringify debug}" if debug
+            ].join ''
+            err.code = code
+            err.signal = signal
+          callback err, stdout, stderr, err?.code or 0, args...
       else
         spawn options.command, [], Object.assign commandOptions, shell: options.shell or true
 

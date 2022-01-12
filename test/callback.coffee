@@ -8,17 +8,24 @@ describe 'exec', ->
   they 'handle a command', ({ssh}, next) ->
     exec
       ssh: ssh
-      command: "cat #{__filename}"
-    , (err, stdout, stderr) ->
-      return next err if err
-      stdout.should.containEql 'myself'
+      command: "echo 'ok' && echo 'ko' >&2"
+    , (err, stdout, stderr, code) ->
+      stdout.should.eql 'ok\n'
+      stderr.should.eql 'ko\n'
+      code.should.eql 0
       next()
 
   they 'exec with error', ({ssh}, next) ->
     exec
       ssh: ssh
-      command: "invalidcommand"
-    , (err, stdout, stderr) ->
-      err.message.should.be.a.String()
-      err.message.should.match /^Child process exited unexpectedly: code \d+, no signal, got ".*invalidcommand.*"$/
+      command: "echo 'ok' && echo 'ko' >&2 && exit 42"
+    , (err, stdout, stderr, code) ->
+      stdout.should.eql 'ok\n'
+      stderr.should.eql 'ko\n'
+      code.should.eql 42
+      err.message.should.equal [
+        'Child process exited unexpectedly:'
+        'code 42, no signal,'
+        'got "ko"'
+      ].join ' '
       next()

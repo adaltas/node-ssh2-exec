@@ -65,8 +65,8 @@ A command, a configuration object and a callback:
 connect = require('ssh2-connect');
 exec = require('ssh2-exec');
 connect({host: localhost}, function(err, ssh){
-  exec('ls -la', {ssh: ssh}, (err, stdout, stderr){
-    console.log(stdout);
+  exec('ls -la', {ssh: ssh}, (err, stdout, stderr, code){
+    console.info(stdout, stderr, code);
   });
 });
 ```
@@ -78,14 +78,20 @@ object:
 connect = require('ssh2-connect');
 exec = require('ssh2-exec');
 connect({host: localhost}, function(err, ssh){
-  child = exec({command: 'ls -la', ssh: ssh}, function(err, stdout, stderr){
-    console.log(stdout);
+  child = exec({
+    command: 'ls -la',
+    ssh: ssh
+  }, function(err, stdout, stderr, code){
+    console.info(stdout);
   });
   child.stdout.on('data', function(data){
-    console.log(data);
+    console.info(data);
+  });
+  child.stderr.on('data', function(data){
+    console.error(data);
   });
   child.on('exit', function(code){
-    console.log('Exit', code);
+    console.info('Exit', code);
   });
 })
 ```
