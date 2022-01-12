@@ -1,6 +1,4 @@
 
-# Changelog
-
 ## Version 0.7.0
 
 * feat: support stdio option
