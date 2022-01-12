@@ -1,3 +1,16 @@
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.7.1](https://github.com/adaltas/node-ssh2-exec/compare/v0.7.0...v0.7.1) (2022-01-12)
+
+
+### Features
+
+* exit code as third argument ([278e962](https://github.com/adaltas/node-ssh2-exec/commit/278e962d889807775a1be8cd388c04289dc248e3))
+* promise api ([5b2da43](https://github.com/adaltas/node-ssh2-exec/commit/5b2da43e0fbc54d3465967ac9aaf7e6ca0a42ac9))
+* use the export package.json field ([88b6301](https://github.com/adaltas/node-ssh2-exec/commit/88b6301737f814e310b8beaf4346bca1c948ecdc))
+
 
 ## Version 0.7.0
 
