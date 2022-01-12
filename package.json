@@ -63,6 +63,9 @@
   "exports": {
     ".": {
       "require": "./lib/index.js"
+    },
+    "./promise": {
+      "require": "./lib/promise.js"
     }
   },
   "optionalDependencies": {},
