@@ -43,6 +43,12 @@
     "type": "git",
     "url": "https://github.com/adaltas/node-ssh2-exec.git"
   },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
+  "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^16.0.2",
     "@commitlint/config-conventional": "^16.0.0",
@@ -54,6 +60,11 @@
     "ssh2-they": "^2.2.1",
     "standard-version": "^9.3.2"
   },
+  "exports": {
+    ".": {
+      "require": "./lib/index.js"
+    }
+  },
   "optionalDependencies": {},
   "scripts": {
     "build": "coffee -b -o lib src",
@@ -63,11 +74,5 @@
     "publish": "npm publish",
     "release": "npm test && standard-version",
     "test": "mocha test/**/*.coffee"
-  },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
-    }
-  },
-  "dependencies": {}
+  }
 }
