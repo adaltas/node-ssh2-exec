@@ -1,11 +1,10 @@
 
 exec = require '../src/index'
-config = require '../test'
-they = require('ssh2-they').configure config
+{connect, they} = require './test'
 
 describe 'options', ->
 
-  they 'env', ({ssh}, next) ->
+  they 'env', connect ({ssh}, next) ->
     # Note, accepted environment variables 
     # is determined by the AcceptEnv server setting
     # default values are "LANG,LC_*"

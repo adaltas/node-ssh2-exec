@@ -1,11 +1,10 @@
 
 exec = require '../src/promise'
-config = require '../test'
-they = require('ssh2-they').configure config
+{connect, they} = require './test'
 
 describe 'promise', ->
 
-  they 'handle a successful command', ({ssh}) ->
+  they.only 'handle a successful command', connect ({ssh}) ->
     {stdout, stderr, code} = await exec
       ssh: ssh
       command: 'echo ok && echo ko >&2 && exit 0'
@@ -13,7 +12,7 @@ describe 'promise', ->
     stderr.should.eql 'ko\n'
     code.should.eql 0
 
-  they 'handle a successful command', ({ssh}) ->
+  they 'handle a successful command', connect ({ssh}) ->
     try
       await exec
         ssh: ssh

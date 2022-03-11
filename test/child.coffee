@@ -1,11 +1,10 @@
 
 exec = require '../src/index'
-config = require '../test'
-they = require('ssh2-they').configure config
+{connect, they} = require './test'
 
 describe 'child', ->
 
-  they 'handle a failed command', ({ssh}, next) ->
+  they 'handle a failed command', connect ({ssh}, next) ->
     stderr = ''
     child = exec
       ssh: ssh
@@ -17,7 +16,7 @@ describe 'child', ->
       code.should.be.above 0
       next()
 
-  they 'provide stream reader as stdout', ({ssh}, next) ->
+  they 'provide stream reader as stdout', connect ({ssh}, next) ->
     data = ''
     out = exec
       ssh: ssh
@@ -29,7 +28,7 @@ describe 'child', ->
       data.should.containEql 'myself'
       next()
 
-  they 'throw error when running an invalid command', ({ssh}, next) ->
+  they 'throw error when running an invalid command', connect ({ssh}, next) ->
     child = exec
       ssh: ssh
       command: "invalidcommand"
@@ -39,7 +38,7 @@ describe 'child', ->
       code.should.eql 127
       next()
 
-  they.skip 'stop command execution', ({ssh}, next) ->
+  they.skip 'stop command execution', connect ({ssh}, next) ->
     child = exec
       ssh: ssh
       command: 'while true; do echo toto; sleep 1; done; exit 2'

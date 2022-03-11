@@ -1,11 +1,10 @@
 
 exec = require '../src/index'
-config = require '../test'
-they = require('ssh2-they').configure config
+{connect, they} = require './test'
 
 describe 'exec', ->
 
-  they 'handle a command', ({ssh}, next) ->
+  they 'handle a command', connect ({ssh}, next) ->
     exec
       ssh: ssh
       command: "echo 'ok' && echo 'ko' >&2"
@@ -15,7 +14,7 @@ describe 'exec', ->
       code.should.eql 0
       next()
 
-  they 'exec with error', ({ssh}, next) ->
+  they 'exec with error', connect ({ssh}, next) ->
     exec
       ssh: ssh
       command: "echo 'ok' && echo 'ko' >&2 && exit 42"
