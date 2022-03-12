@@ -72,8 +72,8 @@
   "optionalDependencies": {},
   "scripts": {
     "build": "coffee -b -o lib src",
-    "publish": "git push --follow-tags origin master && npm publish",
     "prepare": "husky install",
+    "prepublishOnly": "git push --follow-tags origin master",
     "pretest": "npm run build",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
