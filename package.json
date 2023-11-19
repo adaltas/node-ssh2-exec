@@ -36,7 +36,7 @@
       "should",
       "coffeescript/register"
     ],
-    "timeout": 40000,
+    "timeout": 1000,
     "reporter": "spec",
     "recursive": true
   },
