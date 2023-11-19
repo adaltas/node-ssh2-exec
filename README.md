@@ -47,7 +47,9 @@ Valid `options` properties are:
 
 See the [ssh2] and [ssh2-connect] modules on how to create a new SSH connection.
 
-## `ssh2-exec/promise` module usage
+## `ssh2-exec/promises` module usage
+
+Note, until version `0.7.3`, the module was named `ssh2-exec/promise`. The `promise` resolution is still working. However, it will be removed in an upcoming version in favor of `ssh2-exec/promises` in order to be consistent with the Node.js `node:fs/promises` module.
 
 The promise module is an alternative to the callback usage. Like with the callback, use it if `stdout` and `stderr` are not too large and fit in memory.
 

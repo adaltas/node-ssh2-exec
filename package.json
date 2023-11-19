@@ -65,9 +65,8 @@
     ".": {
       "require": "./lib/index.js"
     },
-    "./promise": {
-      "require": "./lib/promise.js"
-    }
+    "./promise": "./lib/promises.js",
+    "./promises": "./lib/promises.js"
   },
   "optionalDependencies": {},
   "scripts": {
