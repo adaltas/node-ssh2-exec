@@ -4,7 +4,7 @@ exec = require '../src/promises'
 
 describe 'promise', ->
 
-  they.only 'handle a successful command', connect ({ssh}) ->
+  they 'handle a successful command', connect ({ssh}) ->
     {stdout, stderr, code} = await exec
       ssh: ssh
       command: 'echo ok && echo ko >&2 && exit 0'
