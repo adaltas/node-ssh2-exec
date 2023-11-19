@@ -2,7 +2,7 @@
 
 # Node.js ssh2-exec
 
-The Node.js `ssh2-exec` package extends the [`ssh2`][ssh2] module to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions.
+The Node.js `ssh2-exec` package extends the [`ssh2`][ssh2] module to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions. It was originally developped for and is still use by [Nikita](https://nikita.js.org) to run actions both locally and over SSH.
 
 ## Installation
 
