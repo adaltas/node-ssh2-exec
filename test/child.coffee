@@ -1,5 +1,5 @@
 
-exec = require '../src/index'
+exec = require '../lib/index'
 {connect, they} = require './test'
 
 describe 'child', ->
