@@ -6,7 +6,8 @@
     "child process",
     "exec",
     "ssh2",
-    "ssh"
+    "ssh",
+    "promise"
   ],
   "homepage": "https://github.com/adaltas/node-ssh2-exec",
   "license": "BSD-3-Clause",
