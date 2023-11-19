@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.7.6](https://github.com/adaltas/node-ssh2-exec/compare/v0.7.5...v0.7.6) (2023-11-19)
+
+
+### Bug Fixes
+
+* enable esm ([f166316](https://github.com/adaltas/node-ssh2-exec/commit/f16631697bfd4ad81a0583614c77389cd81bdd74))
+
 ### [0.7.5](https://github.com/adaltas/node-ssh2-exec/compare/v0.7.4...v0.7.5) (2023-11-19)
 
 ### [0.7.4](https://github.com/adaltas/node-ssh2-exec/compare/v0.7.3...v0.7.4) (2023-11-19)
