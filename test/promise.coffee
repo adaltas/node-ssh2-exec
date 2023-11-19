@@ -1,5 +1,5 @@
 
-exec = require '../src/promise'
+exec = require '../src/promises'
 {connect, they} = require './test'
 
 describe 'promise', ->
