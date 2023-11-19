@@ -62,9 +62,7 @@
     "standard-version": "^9.5.0"
   },
   "exports": {
-    ".": {
-      "require": "./lib/index.js"
-    },
+    ".": "./lib/index.js",
     "./promise": "./lib/promises.js",
     "./promises": "./lib/promises.js"
   },
