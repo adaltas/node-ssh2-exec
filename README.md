@@ -104,11 +104,22 @@ connect({host: localhost}, function(err, ssh){
 Tests are executed with mocha. To install it, simple run `npm install`, it will install mocha and its dependencies in your project "node_modules" directory.
 
 To run the tests:
+
 ```bash
 npm test
 ```
 
 The test suite is run online with [Travis][travis].
+
+## Release
+
+Versions are incremented using semantic versioning. To create a new version and publish it to NPM, run:
+
+```bash
+npm run release
+```
+
+The publication is handled by the GitHub action.
 
 ## Contributors
 
