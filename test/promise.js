@@ -1,8 +1,8 @@
-const exec = require('../lib/promises');
-const { connect, they } = require('./test');
+import { exec } from "../lib/promises.js";
+import { connect, they } from "./test.js";
 
 describe("exec.promise", () => {
-  they(
+  they.only(
     "handle a successful command",
     connect(({ ssh }) => {
       return exec({

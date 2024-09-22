@@ -24,26 +24,26 @@ Or
 
 Like in the native NodeJS API, the callback is not required in case you wish to work with the returned child stream. The "sshOrNull" and "command" arguments are also facultative because they could be provided respectively as the "ssh" and "command" property of the options object.
 
-Valid `options` properties are:   
+Valid `options` properties are:
 
-- `ssh`   
-  SSH connection if the command must run remotely   
-- `command`   
-  Command to run unless provided as first argument   
-- `cwd`   
-  Current working directory   
-- `end`   
-  Close the SSH connection on exit, default to true if an ssh connection instance is provided.   
-- `env`   
-  An environment to use for the execution of the command.   
-- `pty`   
-  Set to true to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. Apply only to SSH remote commands.   
-- `cwd`   
-  Apply only to local commands.   
-- `uid`   
-  Apply only to local commands.   
-- `gid`   
-  Apply only to local commands.   
+- `ssh`  
+  SSH connection if the command must run remotely
+- `command`  
+  Command to run unless provided as first argument
+- `cwd`  
+  Current working directory
+- `end`  
+  Close the SSH connection on exit, default to true if an ssh connection instance is provided.
+- `env`  
+  An environment to use for the execution of the command.
+- `pty`  
+  Set to true to allocate a pseudo-tty with defaults, or an object containing specific pseudo-tty settings. Apply only to SSH remote commands.
+- `cwd`  
+  Apply only to local commands.
+- `uid`  
+  Apply only to local commands.
+- `gid`  
+  Apply only to local commands.
 
 See the [ssh2] and [ssh2-connect] modules on how to create a new SSH connection.
 
@@ -66,10 +66,10 @@ If the exit code is not `0`, the thrown error object contains the `stdout`, `std
 A command, a configuration object and a callback:
 
 ```js
-connect = require('ssh2-connect');
-exec = require('ssh2-exec');
-connect({host: localhost}, function(err, ssh){
-  exec('ls -la', {ssh: ssh}, (err, stdout, stderr, code){
+import { connect } from "ssh2-connect";
+import { exec } from "ssh2-exec";
+connect({ host: localhost }, (err, ssh) => {
+  exec("ls -la", { ssh: ssh }, (err, stdout, stderr, code) => {
     console.info(stdout, stderr, code);
   });
 });
@@ -78,25 +78,28 @@ connect({host: localhost}, function(err, ssh){
 A configuration object with a ssh2 connection and working a the return child object:
 
 ```js
-connect = require('ssh2-connect');
-exec = require('ssh2-exec');
-connect({host: localhost}, function(err, ssh){
-  child = exec({
-    command: 'ls -la',
-    ssh: ssh
-  }, function(err, stdout, stderr, code){
-    console.info(stdout);
-  });
-  child.stdout.on('data', function(data){
+import { connect } from "ssh2-connect";
+import { exec } from "ssh2-exec";
+connect({ host: localhost }, function (err, ssh) {
+  child = exec(
+    {
+      command: "ls -la",
+      ssh: ssh,
+    },
+    function (err, stdout, stderr, code) {
+      console.info(stdout);
+    },
+  );
+  child.stdout.on("data", function (data) {
     console.info(data);
   });
-  child.stderr.on('data', function(data){
+  child.stderr.on("data", function (data) {
     console.error(data);
   });
-  child.on('exit', function(code){
-    console.info('Exit', code);
+  child.on("exit", function (code) {
+    console.info("Exit", code);
   });
-})
+});
 ```
 
 ## Development

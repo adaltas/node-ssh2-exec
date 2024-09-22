@@ -1,5 +1,5 @@
-const exec = require('../lib/index');
-const { connect, they } = require('./test');
+import { exec } from "../lib/index.js";
+import { connect, they } from "./test.js";
 
 describe("exec.callback", () => {
   they(

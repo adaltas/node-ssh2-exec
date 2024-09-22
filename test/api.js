@@ -1,5 +1,7 @@
-const exec = require("../lib/index");
-const { connect, they } = require("./test");
+import { exec } from "../lib/index.js";
+import { connect, they } from "./test.js";
+
+const __filename = new URL("", import.meta.url).pathname;
 
 describe("exec.api", () => {
   they(

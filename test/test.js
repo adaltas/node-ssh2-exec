@@ -1,7 +1,8 @@
-const connect = require("ssh2-connect");
+import connect from "ssh2-connect";
+import configure from "mocha-they";
 
 // Configure and return they
-const they = require("mocha-they")([
+const they = configure([
   { label: "local" },
   {
     label: "remote",
@@ -54,7 +55,4 @@ const wrap = (handler) => {
   }
 };
 
-module.exports = {
-  connect: wrap,
-  they: they,
-};
+export { wrap as connect, they };
