@@ -1,7 +1,7 @@
 const exec = require("../lib/index");
 const { connect, they } = require("./test");
 
-describe("exec", () => {
+describe("exec.api", () => {
   they(
     "ssh, command, callback",
     connect(({ ssh }, next) => {

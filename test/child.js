@@ -1,7 +1,7 @@
 const exec = require("../lib/index");
 const { connect, they } = require("./test");
 
-describe("child", () => {
+describe("exec.child", () => {
   they(
     "handle a failed command",
     connect(({ ssh }, next) => {
