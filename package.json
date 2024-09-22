@@ -12,19 +12,6 @@
   "homepage": "https://github.com/adaltas/node-ssh2-exec",
   "license": "BSD-3-Clause",
   "author": "David Worms <david@adaltas.com>",
-  "coffeelintConfig": {
-    "indentation": {
-      "level": "error",
-      "value": 2
-    },
-    "line_endings": {
-      "level": "error",
-      "value": "unix"
-    },
-    "max_line_length": {
-      "level": "ignore"
-    }
-  },
   "contributors": [],
   "engines": {
     "node": ">=0.10.1"
@@ -33,8 +20,7 @@
   "mocha": {
     "throw-deprecation": true,
     "require": [
-      "should",
-      "coffeescript/register"
+      "should"
     ],
     "timeout": 5000,
     "reporter": "spec",
@@ -53,7 +39,6 @@
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
-    "coffeescript": "^2.7.0",
     "husky": "^9.0.11",
     "mocha": "^10.4.0",
     "mocha-they": "^0.1.3",
@@ -74,6 +59,6 @@
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major",
     "postrelease": "git push --follow-tags origin master",
-    "test": "mocha 'test/**/*.coffee'"
+    "test": "mocha 'test/**/*.js'"
   }
 }

@@ -4,7 +4,8 @@ package-lock.json
 yarn.lock
 yarn-error.log
 !.github
+!.gitignore
 !.husky
 !.npmignore
-!.gitignore
 !.travis.yml
+!.prettierrc.yml
