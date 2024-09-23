@@ -112,8 +112,6 @@ To run the tests:
 npm test
 ```
 
-The test suite is run online with [Travis][travis].
-
 ## Release
 
 Versions are incremented using semantic versioning. To create a new version and publish it to NPM, run:
@@ -128,7 +126,6 @@ The publication is handled by the GitHub action.
 
 - David Worms: <https://github.com/wdavidw>
 
-[travis]: http://travis-ci.org/adaltas/node-ssh2-exec
 [ssh2]: https://github.com/mscdex/ssh2
 [ssh2-connect]: https://github.com/adaltas/node-ssh2-connect
 [license]: https://github.com/adaltas/node-ssh2-exec/blob/master/LICENSE.md
