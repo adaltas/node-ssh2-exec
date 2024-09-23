@@ -13,8 +13,38 @@
   "license": "BSD-3-Clause",
   "author": "David Worms <david@adaltas.com>",
   "contributors": [],
+  "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "@eslint/core": "^0.6.0",
+    "@eslint/js": "^9.11.1",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-mocha": "^10.5.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "mocha": "^10.7.3",
+    "mocha-they": "^0.1.6",
+    "prettier": "^3.3.3",
+    "should": "^13.2.3",
+    "ssh2-connect": "^4.0.2",
+    "standard-version": "^9.5.0",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.7.0"
+  },
   "engines": {
     "node": ">=0.10.1"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./promise": "./lib/promises.js",
+    "./promises": "./lib/promises.js"
+  },
+  "lint-staged": {
+    "*.js": "npm run lint:fix",
+    "*.md": "prettier -w"
   },
   "main": "./lib/index",
   "mocha": {
@@ -30,29 +60,10 @@
     "type": "git",
     "url": "https://github.com/adaltas/node-ssh2-exec.git"
   },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
-    }
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@commitlint/cli": "^19.5.0",
-    "@commitlint/config-conventional": "^19.5.0",
-    "husky": "^9.1.6",
-    "mocha": "^10.7.3",
-    "mocha-they": "^0.1.6",
-    "should": "^13.2.3",
-    "ssh2-connect": "^4.0.2",
-    "standard-version": "^9.5.0"
-  },
-  "exports": {
-    ".": "./lib/index.js",
-    "./promise": "./lib/promises.js",
-    "./promises": "./lib/promises.js"
-  },
-  "optionalDependencies": {},
   "scripts": {
+    "lint:check": "eslint",
+    "lint:fix": "eslint --fix",
+    "lint:staged": "npx lint-staged",
     "prepare": "husky install",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
