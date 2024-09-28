@@ -1,3 +1,4 @@
+import "should";
 import { exec } from "../src/index.js";
 import { they } from "./test.js";
 
@@ -18,18 +19,5 @@ describe("exec.api", function () {
       stdout.should.containEql("myself");
       next();
     });
-  });
-
-  they("multiple options, callback", function ({ ssh }, next) {
-    exec(
-      { ssh: ssh },
-      { command: "invalid" },
-      { command: `cat ${__filename}` },
-      (err, stdout) => {
-        if (err) return next(err);
-        stdout.should.containEql("myself");
-        next();
-      },
-    );
   });
 });

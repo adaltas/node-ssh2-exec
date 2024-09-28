@@ -1,4 +1,5 @@
-import { exec } from "../lib/index.js";
+import "should";
+import { exec } from "../src/index.js";
 import { they } from "./test.js";
 
 describe("exec.options", function () {
@@ -16,11 +17,9 @@ describe("exec.options", function () {
       env: { LANG: "tv" },
       command: "env | grep LANG",
     });
-
-    child.stdout.on("data", (data) => {
+    child.stdout?.on("data", (data) => {
       stdout += data;
     });
-
     child.on("exit", () => {
       stdout.trim().should.eql("LANG=tv");
       next();

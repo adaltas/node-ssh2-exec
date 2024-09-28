@@ -1,4 +1,5 @@
-import { exec } from "../lib/index.js";
+import should from "should";
+import { exec } from "../src/index.js";
 import { they } from "./test.js";
 
 describe("exec.callback", function () {
@@ -27,7 +28,8 @@ describe("exec.callback", function () {
         stdout.should.eql("ok\n");
         stderr.should.eql("ko\n");
         code.should.eql(42);
-        err.message.should.equal(
+        should(err).not.be.undefined();
+        err?.message.should.equal(
           [
             "Child process exited unexpectedly:",
             "code 42, no signal,",

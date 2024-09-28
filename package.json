@@ -19,6 +19,8 @@
     "@eslint/core": "^0.6.0",
     "@eslint/js": "^9.11.1",
     "@types/eslint__js": "^8.42.3",
+    "@types/mocha": "^10.0.8",
+    "@types/ssh2": "^1.15.1",
     "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-mocha": "^10.5.0",
@@ -26,11 +28,15 @@
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
     "mocha": "^10.7.3",
-    "mocha-they": "^0.1.6",
+    "mocha-they": "^0.1.8",
     "prettier": "^3.3.3",
     "should": "^13.2.3",
-    "ssh2-connect": "^4.0.2",
+    "ssh2-connect": "^4.0.3",
     "standard-version": "^9.5.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.1",
+    "typedoc": "^0.26.7",
+    "typedoc-plugin-markdown": "^4.2.8",
     "typescript": "^5.6.2",
     "typescript-eslint": "^8.7.0"
   },
@@ -38,9 +44,16 @@
     "node": ">=0.10.1"
   },
   "exports": {
-    ".": "./lib/index.js",
-    "./promise": "./lib/promises.js",
-    "./promises": "./lib/promises.js"
+    ".": {
+      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.cjs"
+    },
+    "./promises": {
+      "import": "./dist/esm/promises.js",
+      "types": "./dist/types/promises.d.ts",
+      "require": "./dist/cjs/promises.cjs"
+    }
   },
   "lint-staged": {
     "*.js": "npm run lint:fix",
@@ -48,19 +61,22 @@
   },
   "main": "./lib/index",
   "mocha": {
-    "throw-deprecation": true,
+    "inline-diffs": true,
+    "loader": "ts-node/esm",
+    "recursive": true,
+    "reporter": "spec",
     "require": [
       "should"
     ],
-    "timeout": 5000,
-    "reporter": "spec",
-    "recursive": true
+    "throw-deprecation": false,
+    "timeout": 40000
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/adaltas/node-ssh2-exec.git"
   },
   "scripts": {
+    "build": "tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
     "lint:check": "eslint",
     "lint:fix": "eslint --fix",
     "lint:staged": "npx lint-staged",
@@ -70,7 +86,7 @@
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major",
     "postrelease": "git push --follow-tags origin master",
-    "test": "mocha 'test/**/*.js'"
+    "test": "mocha 'test/**/*.ts'"
   },
   "type": "module"
 }

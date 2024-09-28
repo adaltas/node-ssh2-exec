@@ -1,8 +1,24 @@
-import { exec } from "../lib/promises.js";
+import "should";
+import { exec } from "../src/promises.js";
 import { they } from "./test.js";
 
 describe("exec.promise", function () {
-  they("handle a successful command", ({ ssh }) => {
+  they("args ssh,command", function ({ ssh }) {
+    return exec(ssh, "echo ok").then(({ stdout }) => {
+      stdout.should.eql("ok\n");
+    });
+  });
+
+  they("args options", function ({ ssh }) {
+    return exec({
+      ssh: ssh,
+      command: "echo ok",
+    }).then(({ stdout }) => {
+      stdout.should.eql("ok\n");
+    });
+  });
+
+  they("handle a successful command", function ({ ssh }) {
     return exec({
       ssh: ssh,
       command: "echo ok && echo ko >&2 && exit 0",

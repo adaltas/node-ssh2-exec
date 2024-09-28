@@ -1,4 +1,5 @@
-import { exec } from "../lib/index.js";
+import should from "should";
+import { exec } from "../src/index.js";
 import { they } from "./test.js";
 
 const __filename = new URL("", import.meta.url).pathname;
@@ -10,12 +11,13 @@ describe("exec.child", function () {
       ssh: ssh,
       command: "ls -l ~/doesntexist",
     });
-    child.stderr.on("data", (data) => {
+    child.stderr?.on("data", (data) => {
       stderr += data;
     });
     child.on("exit", (code) => {
       stderr.should.containEql("ls:");
-      code.should.be.above(0);
+      should(code).not.be.undefined();
+      code?.should.be.above(0);
       next();
     });
   });
@@ -26,13 +28,13 @@ describe("exec.child", function () {
       ssh: ssh,
       command: `cat ${__filename}`,
     });
-    out.stdout.on("readable", function () {
+    out.stdout?.on("readable", function () {
       let d;
-      while ((d = out.stdout.read())) {
+      while ((d = out.stdout?.read())) {
         data += d.toString();
       }
     });
-    out.stdout.on("end", () => {
+    out.stdout?.on("end", () => {
       data.should.containEql("myself");
       next();
     });
@@ -47,7 +49,8 @@ describe("exec.child", function () {
       next(new Error("Should not be called"));
     });
     child.on("exit", (code) => {
-      code.should.eql(127);
+      should(code).not.be.undefined();
+      code?.should.eql(127);
       next();
     });
   });
@@ -59,11 +62,11 @@ describe("exec.child", function () {
     });
     child.on("error", next);
     child.on("exit", (code, signal) => {
+      should(signal).not.be.null();
       if (!ssh) {
-        signal.should.eql("SIGTERM");
-      }
-      if (ssh) {
-        signal.should.eql("SIGPIPE");
+        signal?.should.eql("SIGTERM");
+      } else {
+        signal?.should.eql("SIGPIPE");
       }
       next();
     });
