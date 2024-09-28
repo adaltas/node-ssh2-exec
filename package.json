@@ -55,11 +55,13 @@
       "require": "./dist/cjs/promises.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "lint-staged": {
     "*.js": "npm run lint:fix",
     "*.md": "prettier -w"
   },
-  "main": "./lib/index",
   "mocha": {
     "inline-diffs": true,
     "loader": "ts-node/esm",
