@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.1](https://github.com/adaltas/node-ssh2-exec/compare/v0.8.0...v0.8.1) (2024-09-29)
+
+### Features
+
+- typescript support and convertion ([c64d07a](https://github.com/adaltas/node-ssh2-exec/commit/c64d07a48ce439a43263000d6380c80465999be8))
+
 ## [0.8.0](https://github.com/adaltas/node-ssh2-exec/compare/v0.7.7...v0.8.0) (2024-09-23)
 
 ### ⚠ BREAKING CHANGES
