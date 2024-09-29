@@ -33,6 +33,7 @@
     "should": "^13.2.3",
     "ssh2-connect": "^4.0.3",
     "standard-version": "^9.5.0",
+    "tsup": "^8.3.0",
     "tsx": "^4.19.1",
     "typedoc": "^0.26.7",
     "typedoc-plugin-markdown": "^4.2.8",
@@ -44,14 +45,14 @@
   },
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "types": "./dist/types/index.d.ts",
-      "require": "./dist/cjs/index.cjs"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs"
     },
     "./promises": {
-      "import": "./dist/esm/promises.js",
-      "types": "./dist/types/promises.d.ts",
-      "require": "./dist/cjs/promises.cjs"
+      "import": "./dist/promises.js",
+      "types": "./dist/promises.d.ts",
+      "require": "./dist/promises.cjs"
     }
   },
   "files": [
@@ -77,7 +78,7 @@
     "url": "https://github.com/adaltas/node-ssh2-exec.git"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.esm.json && tsc --project tsconfig.cjs.json",
+    "build": "tsup-node",
     "lint:check": "eslint",
     "lint:fix": "eslint --fix",
     "lint:staged": "npx lint-staged",
