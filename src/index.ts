@@ -5,14 +5,6 @@ import * as stream from "node:stream";
 // import NodeJS from "node:process";
 import { Client, ExecOptions as Ssh2ExecOptions } from "ssh2";
 
-// // Utilities
-// const is_ssh_connection = (obj: any): obj is Client => {
-//   return !!obj?.config?.host;
-// };
-// const is_object = (obj: any): obj is object => {
-//   return obj && typeof obj === "object" && !Array.isArray(obj);
-// };
-
 export const local = function (
   options: ExecLocalOptions,
   callback: ExecCallback,
@@ -109,8 +101,6 @@ export const remote = function (
       child.stderr?.push(null);
       child.emit("close", code, signal);
       child.emit("exit", code, signal);
-      // child.emit("close", code);
-      // child.emit("exit", code);
       if (code !== 0) {
         let debug;
         if (stderr.trim().length) {
