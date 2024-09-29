@@ -1,7 +1,7 @@
 name: Publish
 on:
   push:
-    tags: [ 'v*' ]
+    tags: ["v*"]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -22,7 +22,7 @@ jobs:
       - run: sudo apt install -y openssh-server && sudo sed -E -i 's|^#?(PermitUserEnvironment)\s.*|\1 yes|' /etc/ssh/sshd_config  && sudo systemctl start sshd
       - run: ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ''
       - run: cat ~/.ssh/id_ed25519.pub > ~/.ssh/authorized_keys
-      - run: yarn --frozen-lockfile
+      - run: npm ci
       - run: CI_DISABLE_SSH_ENV=1 yarn run test
   publish:
     needs: [test]
@@ -34,9 +34,9 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install
+          node-version: "20.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: npm ci
       - run: npm run build
       - run: npm publish
         env:
