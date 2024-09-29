@@ -124,7 +124,7 @@ The publication is handled by the GitHub action.
 
 ## Contributors
 
-- David Worms: <https://github.com/wdavidw>
+The project is sponsored by [Adaltas](https://www.adaltas.com) based in Paris, France. Adaltas offers support and consulting on distributed systems, big data and open source.
 
 [ssh2]: https://github.com/mscdex/ssh2
 [ssh2-connect]: https://github.com/adaltas/node-ssh2-connect
