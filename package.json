@@ -1,6 +1,6 @@
 {
   "name": "ssh2-exec",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Transparent usage between `child_process.exec` and `ssh2.prototype.exec`",
   "keywords": [
     "child process",
