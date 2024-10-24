@@ -1,4 +1,6 @@
-[![Build Status](https://secure.travis-ci.org/adaltas/node-ssh2-exec.svg)][travis]
+[![Build Status](https://img.shields.io/github/actions/workflow/status/adaltas/node-ssh2-exec/test.yml?branch=master)](https://github.com/adaltas/node-ssh2-exec/actions)
+[![NPM](https://img.shields.io/npm/dm/ssh2-exec)](https://www.npmjs.com/package/ssh2-exec)
+[![NPM](https://img.shields.io/npm/v/ssh2-exec)](https://www.npmjs.com/package/ssh2-exec)
 
 # Node.js ssh2-exec
 
