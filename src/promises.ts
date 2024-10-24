@@ -42,4 +42,6 @@ function exec(
     });
   });
 }
+
+export default exec;
 export { exec };

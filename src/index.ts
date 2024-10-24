@@ -204,7 +204,7 @@ function exec(
   ssh: Client | null,
   command: string,
   options: ExecOptions,
-  callbac?: ExecCallback,
+  callback?: ExecCallback,
 ): childProcess.ChildProcess;
 function exec(
   arg1: Client | ExecOptions | null,
@@ -232,4 +232,6 @@ function exec(
     return local(options, callback);
   }
 }
+
+export default exec;
 export { exec };
