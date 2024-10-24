@@ -10,7 +10,7 @@
     "promise"
   ],
   "homepage": "https://github.com/adaltas/node-ssh2-exec",
-  "license": "BSD-3-Clause",
+  "license": "MIT",
   "author": "David Worms <david@adaltas.com>",
   "contributors": [],
   "devDependencies": {

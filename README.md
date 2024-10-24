@@ -6,7 +6,7 @@ The Node.js `ssh2-exec` package extends the [`ssh2`][ssh2] module to provide tra
 
 ## Installation
 
-This is OSS and licensed under the [new BSD license][license].
+This is OSS and licensed under the [MIT license](https://github.com/adaltas/node-ssh2-exec/blob/master/LICENSE.md).
 
 ```bash
 npm install ssh2-exec
@@ -128,4 +128,3 @@ The project is sponsored by [Adaltas](https://www.adaltas.com) based in Paris, F
 
 [ssh2]: https://github.com/mscdex/ssh2
 [ssh2-connect]: https://github.com/adaltas/node-ssh2-connect
-[license]: https://github.com/adaltas/node-ssh2-exec/blob/master/LICENSE.md
