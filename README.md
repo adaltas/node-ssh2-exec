@@ -4,7 +4,7 @@
 
 # Node.js ssh2-exec
 
-The Node.js `ssh2-exec` package extends the [`ssh2`][ssh2] module to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions. It was originally developped for and is still use by [Nikita](https://nikita.js.org) to run actions both locally and over SSH.
+The Node.js `ssh2-exec` package extends the [`ssh2`](https://github.com/mscdex/ssh2) module to provide transparent usage between the `child_process.exec` and `ssh2.prototype.exec` functions. It was originally developped for and is still use by [Nikita](https://nikita.js.org) to run actions both locally and over SSH.
 
 ## Installation
 
@@ -47,7 +47,7 @@ Valid `options` properties are:
 - `gid`  
   Apply only to local commands.
 
-See the [ssh2] and [ssh2-connect] modules on how to create a new SSH connection.
+See the [ssh2](https://github.com/mscdex/ssh2) and [ssh2-connect](https://github.com/adaltas/node-ssh2-connect) modules on how to create a new SSH connection.
 
 ## `ssh2-exec/promises` module usage
 
@@ -127,6 +127,3 @@ The publication is handled by the GitHub action.
 ## Contributors
 
 The project is sponsored by [Adaltas](https://www.adaltas.com) based in Paris, France. Adaltas offers support and consulting on distributed systems, big data and open source.
-
-[ssh2]: https://github.com/mscdex/ssh2
-[ssh2-connect]: https://github.com/adaltas/node-ssh2-connect
