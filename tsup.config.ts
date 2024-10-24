@@ -7,7 +7,7 @@ export default defineConfig({
   format: ["esm", "cjs"],
   target: ["esnext", "esnext"],
   dts: true,
-  minify: true,
-  sourcemap: false,
-  splitting: true,
+  minify: false,
+  sourcemap: true,
+  splitting: false,
 });
