@@ -7,10 +7,10 @@ describe("exec.options", function () {
     if (ssh && process.env.CI_DISABLE_SSH_ENV) {
       return next();
     }
-    // Note, accepted environment variables
-    // is determined by the AcceptEnv server setting
-    // default values are "LANG,LC_*"
-    // Note, PermitUserEnvironment must equal `yes`
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // !!!!!!!!!!     Read the README.md      !!!!!!!!!!!
+    // !!!!!!!!!! to configure the SSH server !!!!!!!!!!!
+    // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     let stdout = "";
     const child = exec({
       ssh: ssh,

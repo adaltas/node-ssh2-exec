@@ -114,6 +114,11 @@ To run the tests:
 npm test
 ```
 
+Tests related to environment variables require a specific SSH server configuration (eg in `/etc/ssh/sshd_config`):
+
+- The `AcceptEnv` property determines accepted environment variables and must contain `LANG` variable.
+- The `PermitUserEnvironment` property must equal `yes`.
+
 ## Release
 
 Versions are incremented using semantic versioning. To create a new version and publish it to NPM, run:
