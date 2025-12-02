@@ -32,7 +32,7 @@ jobs:
       # Note, test in `./test/options` require SSH to pass the LANG env variable
       # However, I failed to enable it
       # Paliative solution is to pass the CI_DISABLE_SSH_ENV var to disable testing
-      - run: sudo apt install -y openssh-server && sudo sed -E -i 's|^#?(PermitUserEnvironment)\s.*|\1 yes|' /etc/ssh/sshd_config && sudo systemctl start sshd
+      - run: sudo apt install -y openssh-server && sudo sed -E -i 's|^#?(PermitUserEnvironment)\s.*|\1 yes|' /etc/ssh/sshd_config && sudo systemctl start ssh
       - run: ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519 -N ''
       - run: cat ~/.ssh/id_ed25519.pub > ~/.ssh/authorized_keys
       - run: npm ci
