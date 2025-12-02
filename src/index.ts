@@ -15,6 +15,8 @@ export const local = function (
       options.command,
       options,
       function (err, stdout, stderr) {
+        stdout = stdout as string;
+        stderr = stderr as string;
         if (err) {
           let debug;
           if (stderr.trim().length) {

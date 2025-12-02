@@ -13,7 +13,7 @@ export default [
   },
   js.configs.recommended,
   ...ts.configs.recommended,
-  mocha.configs.flat.recommended,
+  mocha.configs.recommended,
   prettier,
   {
     rules: {
