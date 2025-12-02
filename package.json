@@ -76,7 +76,9 @@
     "url": "https://github.com/adaltas/node-ssh2-exec.git"
   },
   "scripts": {
-    "build": "tsup-node",
+    "build": "npm run build:check && npm run build:dist",
+    "build:dist": "tsup-node",
+    "build:check": "npx tsc --noEmit",
     "docs": "npm run docs:html && npm run docs:md",
     "docs:html": "typedoc --readme none --out docs/types/html --skipErrorChecking src/index.ts",
     "docs:md": "typedoc --plugin typedoc-plugin-markdown --readme none --out docs/types/md --skipErrorChecking src/index.ts",
