@@ -10,7 +10,7 @@
 
 > **exec**(`options`, `callback?`): `ChildProcess`
 
-Defined in: [index.ts:194](https://github.com/adaltas/node-ssh2-exec/blob/083163baf1b413e01be4f74ceee61972df68f351/src/index.ts#L194)
+Defined in: [index.ts:196](https://github.com/adaltas/node-ssh2-exec/blob/7db8597fae43bab37cafc4a9b1d259fcd2db47fe/src/index.ts#L196)
 
 ### Parameters
 
@@ -30,7 +30,7 @@ Defined in: [index.ts:194](https://github.com/adaltas/node-ssh2-exec/blob/083163
 
 > **exec**(`ssh`, `command`, `callback?`): `ChildProcess`
 
-Defined in: [index.ts:198](https://github.com/adaltas/node-ssh2-exec/blob/083163baf1b413e01be4f74ceee61972df68f351/src/index.ts#L198)
+Defined in: [index.ts:200](https://github.com/adaltas/node-ssh2-exec/blob/7db8597fae43bab37cafc4a9b1d259fcd2db47fe/src/index.ts#L200)
 
 ### Parameters
 
@@ -54,7 +54,7 @@ Defined in: [index.ts:198](https://github.com/adaltas/node-ssh2-exec/blob/083163
 
 > **exec**(`ssh`, `command`, `options`, `callback?`): `ChildProcess`
 
-Defined in: [index.ts:203](https://github.com/adaltas/node-ssh2-exec/blob/083163baf1b413e01be4f74ceee61972df68f351/src/index.ts#L203)
+Defined in: [index.ts:205](https://github.com/adaltas/node-ssh2-exec/blob/7db8597fae43bab37cafc4a9b1d259fcd2db47fe/src/index.ts#L205)
 
 ### Parameters
 

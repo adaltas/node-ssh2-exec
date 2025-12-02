@@ -8,7 +8,7 @@
 
 > **remote**(`options`, `callback`): `ChildProcess`
 
-Defined in: [index.ts:49](https://github.com/adaltas/node-ssh2-exec/blob/083163baf1b413e01be4f74ceee61972df68f351/src/index.ts#L49)
+Defined in: [index.ts:51](https://github.com/adaltas/node-ssh2-exec/blob/7db8597fae43bab37cafc4a9b1d259fcd2db47fe/src/index.ts#L51)
 
 ## Parameters
 

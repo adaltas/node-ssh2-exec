@@ -8,7 +8,7 @@
 
 > **local**(`options`, `callback`): `ChildProcess`
 
-Defined in: [index.ts:8](https://github.com/adaltas/node-ssh2-exec/blob/083163baf1b413e01be4f74ceee61972df68f351/src/index.ts#L8)
+Defined in: [index.ts:8](https://github.com/adaltas/node-ssh2-exec/blob/7db8597fae43bab37cafc4a9b1d259fcd2db47fe/src/index.ts#L8)
 
 ## Parameters
 
