@@ -16,9 +16,7 @@
   "devDependencies": {
     "@commitlint/cli": "^20.1.0",
     "@commitlint/config-conventional": "^20.0.0",
-    "@eslint/core": "^1.0.0",
     "@eslint/js": "^9.39.1",
-    "@types/eslint__js": "^9.14.0",
     "@types/mocha": "^10.0.10",
     "@types/ssh2": "^1.15.5",
     "eslint": "^9.39.1",
