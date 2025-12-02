@@ -83,7 +83,7 @@
     "lint:check": "eslint",
     "lint:fix": "eslint --fix",
     "lint:staged": "npx lint-staged",
-    "prepare": "husky install",
+    "prepare": "husky",
     "release": "standard-version",
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
